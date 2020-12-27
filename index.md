@@ -1,5 +1,4 @@
-<meta charset="utf-8"><center><pre>
-<title>Open source project for pigs</title>
+
 Welcome here!
 All projects here are open source and you can help us improve our projects!
 Don't use the items here for commercial use, violators must be investigated!
