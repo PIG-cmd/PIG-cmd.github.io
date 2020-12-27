@@ -1,0 +1,180 @@
+<!doctype html><meta charset="utf-8">
+<title>Pig World Free 0.1</title>
+<head>
+<script>
+
+console.log("[" + new Date().toLocaleTimeString().slice(2) + "] main.html Loading!");
+if (localStorage.getItem('size') == null)
+	localStorage.setItem('size',32);
+</script>
+<script src="world/create.js"></script>
+<script src="world/display.js"></script>
+<script src="world/destroy.js"></script>
+<script src="player/move.js"></script>
+<script src="config/config.js"></script>
+<script>
+		function joingame()
+		{
+			if (localStorage.getItem('plx') == null || localStorage.getItem('ply') == null)
+			{
+				if (localStorage.getItem('lang') == null)
+				alert("There is no preserved world!");
+				if (localStorage.getItem('lang') == "jtcn")
+				alert("没有已保存的世界！");
+				location.reload();
+			}
+
+			setInterval(function () {
+				document.onkeydown=function(event){
+        				var event=event||window.event;
+       				 var key = event.keyCode;
+				if (key == 27)
+					localStorage.setItem('num',2);
+				
+
+				}
+				if (localStorage.getItem('num') == null)
+				{
+					console.log("[" + new Date().toLocaleTimeString().slice(2) + "] In Function game.html 渲染程序");
+					var plx = parseInt(localStorage.getItem('plx'));
+					var ply = parseInt(localStorage.getItem('ply'));
+					var world = JSON.parse(localStorage.getItem('world'));
+					var name = localStorage.getItem('name');
+					var skin = localStorage.getItem('skin');
+					display(world,"main",name,skin,plx,ply);
+				}
+				if (localStorage.getItem('num') == 1)
+				{
+					if (localStorage.getItem('lang') == null)
+						document.getElementById('main').innerHTML = "<br><font color=red><h1>You died!</h1></font><br><br><input type=button value=Spawn onclick=javascript:respawn();>";
+					if (localStorage.getItem('lang') == "jtcn")
+						document.getElementById('main').innerHTML = "<br><font color=red><h1>你死了！</h1></font><br><br><input type=button value=重生 onclick=javascript:respawn();>";
+				}
+				if (localStorage.getItem('num') == 2)
+				{
+					if (localStorage.getItem('lang') == null)
+					{
+					document.getElementById('xy').innerHTML = "";
+					document.getElementById('main').innerHTML = "<h1><font color=red>Pig World</font></h1><br><input type=button value='Continue to play' onclick=javascript:localStorage.removeItem(\"num\");localStorage.removeItem('num');><br><input type=button value='Save Game' onclick=javascript:localStorage.removeItem(\"num\");localStorage.removeItem('num');location.reload();><br><input type=button value='Exit Game' onclick=javascript:localStorage.removeItem(\"num\");localStorage.removeItem('num');localStorage.removeItem(\"name\");localStorage.removeItem(\"skin\");localStorage.removeItem(\"plx\");localStorage.removeItem(\"ply\");localStorage.removeItem(\"world\");location.reload();>";
+					}
+					if (localStorage.getItem('lang') == "jtcn")
+					{
+					document.getElementById('xy').innerHTML = "";
+					document.getElementById('main').innerHTML = "<h1><font color=red>Pig World</font></h1><br><input type=button value='继续游戏' onclick=javascript:localStorage.removeItem(\"num\");localStorage.removeItem('num');><br><input type=button value='保存世界' onclick=javascript:localStorage.removeItem(\"num\");localStorage.removeItem('num');location.reload();><br><input type=button value='退出世界' onclick=javascript:localStorage.removeItem(\"num\");localStorage.removeItem('num');localStorage.removeItem(\"name\");localStorage.removeItem(\"skin\");localStorage.removeItem(\"plx\");localStorage.removeItem(\"ply\");localStorage.removeItem(\"world\");location.reload();>";
+					}
+				}
+			},500);
+		
+			setInterval(function () {
+				console.log("[" + new Date().toLocaleTimeString().slice(2) + "] In Function game.html player_重力程序");
+
+				var stop = localStorage.getItem('stop');
+				var plx = parseInt(localStorage.getItem('plx'));
+				var ply = parseInt(localStorage.getItem('ply'));
+			
+				if (localStorage.getItem('num') != 2)
+				{
+	
+					var world = JSON.parse(localStorage.getItem('world'));
+					var isair = find(plx,ply - 1,world);
+					if (localStorage.getItem('num') != 1)
+					{
+						if (isair.space == "air" && stop == null)
+						ply = ply - 1;
+			
+					localStorage.removeItem('ply');
+					localStorage.setItem('ply',ply);
+					}
+				}
+			},800);
+			setInterval(function () {
+				console.log("[" + new Date().toLocaleTimeString().slice(2) + "] In Function game.html player_玩家定位程序");
+
+				var stop = localStorage.getItem('stop');
+				var plx = parseInt(localStorage.getItem('plx'));
+				var ply = parseInt(localStorage.getItem('ply'));
+				if (ply < -10)
+				{
+					localStorage.setItem('num',1);
+					localStorage.removeItem('plx');
+					localStorage.removeItem('ply');
+					localStorage.setItem('plx',spawn().x);
+					localStorage.setItem('ply',spawn().y);
+				}
+				if (localStorage.getItem('num') != 2)
+				{
+					document.getElementById('xy').innerHTML = "X:" + plx + ";Y:" + ply;
+					console.log("坐标已显示");
+				}
+				blockname();
+			},200);
+			setInterval(function () {
+				console.log("[" + new Date().toLocaleTimeString().slice(2) + "] In Function game.html player_move_request");
+				document.onkeydown=function(event){
+        				var event=event||window.event;
+       				 var k = event.keyCode;
+				if (k == 87)
+				{
+					
+					playermove(1);
+				}
+				if (k == 65)
+				{
+					playermove(2);
+				}
+				if (k == 68)
+				{
+					playermove(3);
+				}
+				if (k == 83)
+				{
+					playermove(4);
+				}}
+			},200);
+		}
+</script>
+</head>
+<p id=version>Pig World Alpha 0.1</p><br><p id=xy></p><br><p id=blockname></p><br><center><pre id=main>
+<img src="img/steup/title.png" height=128px weight=128px >
+
+<script>
+if (localStorage.getItem('lang') == null)
+	document.write("<br><br><br><input type=button value='Create World' onclick=javascript:create();><br><input type=button value='Join World' onclick='javascript:joingame();'><br><input type=button onclick=javascript:config(); value=Config><br><a href='http://192.168.1.10:80/game/PigWorld'>Official website</a><br><input type=button value='Exit game' onclick='javascript:window.close()'></pre></center><p id=info></p><canvas id='Canvas'></canvas> ");
+if (localStorage.getItem('lang') == "jtcn")
+document.write("<br><br><br><input type=button value='创建世界' onclick=javascript:create();><br><input type=button value='加入世界' onclick='javascript:joingame();'><br><input type=button onclick=javascript:config(); value=设置><br><a href='http://192.168.1.10:80/game/PigWorld'>官网</a><br><input type=button value='退出游戏' onclick='javascript:window.close()'></pre></center><p id=info></p><canvas id='Canvas'></canvas> ");
+    function  isChinese(s){
+	console.log("[" + new Date().toLocaleTimeString().slice(2) + "] In Function game.html isChinese()");
+        var  index = escape(s).indexOf("%u");
+        if(index < 0){return false;}else{return true}
+    } 
+if (localStorage.getItem('lang') == null)
+	if (!document.getElementById("Canvas").getContext){     if(confirm("Sorry, your browser does not support HTML5 technology, please use Cookie Version, click OK to go to the official website, click No to close the page.") == true) document.location = "http://192.168.1.10:80/game/PigWorld";  else window.close(); }
+if (localStorage.getItem('lang') == "jtcn")
+if (!document.getElementById("Canvas").getContext){     if(confirm("对不起，你的浏览器不支持HTML5技术，请移步至官网，使用Cookie模式，按下确定将跳转到官网") == true) document.location = "http://192.168.1.10:80/game/PigWorld";  else window.close(); }
+var query = location.search.substring(1);
+if (query != "" && sessionStorage.getItem('u') == null)
+{
+
+	if(query.split(':')[0] == "createworld")
+	{
+		document.getElementById("main").innerHTML = "";
+		var world = createworld();
+		localStorage.setItem('world',JSON.stringify(world));
+		plx = spawn().x;
+		ply = spawn().y;
+		localStorage.setItem('plx',plx);
+		localStorage.setItem('ply',ply);
+		var name = query.split(':')[1].split('[')[1].split(']')[0].split(',')[0];
+		if (isChinese(name) == true)
+			name = "NoCN....";
+		var skin = query.split(':')[1].split('[')[1].split(']')[0].split(',')[1];
+		localStorage.setItem('name',name);
+		localStorage.setItem('skin',skin);
+		if (localStorage.getItem('lang') == null)
+			alert("The world is created! You can join the newly created world by 'join game' on the start page");
+		if (localStorage.getItem('lang') == "jtcn")
+			alert("世界已经创建！您可以从主菜单中的\"加入世界\"来加入这个新创建的世界");
+		document.location = window.location.href.split('?')[0];
+	}
+} sessionStorage.removeItem('u');
+</script>
