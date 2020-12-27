@@ -1,0 +1,5 @@
+word-break:break-all
+pre { word-break:break-all; }
+p { word-break:break-all; }
+body { word-break:break-all; }
+div { word-break:break-all; }
