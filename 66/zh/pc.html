@@ -91,7 +91,7 @@ function loadmoney(db)
 		obj.updot = parseInt(obj.dot) - obj.canstar;
 		document.getElementById("result").innerHTML += "您可以使用<font color=red>" + obj.canstar + "</font>个星来抵消您的点<br>您需要上缴<font color=red>" + (obj.updot * 2)+ "</font>人民币给班级<br>支持微信转账<br>[二维码收款升级中，暂不开放]<br>向<font color=red>徐亦辰</font>转账";
 		var i = 1;
-		var add = 0;
+		var add = 300;
 		while (i != 36)
 		{
 			add += parseInt(db.money[i].donate);
