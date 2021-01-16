@@ -109,3 +109,13 @@ function loadmoney(db)
 <center><pre>Contant Hugang Li <a href=mailto:fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a> Yichen Xu <a href=mailto:xyc_35@163.com>xyc_35@163.com</a>
 <hr><br>Copyright ©2021 Shift fee payment system
 </div>
+<div id=selectlanguage style='position:fixed;bottom:0px;left:0%;background:#00ff00'>
+Please select your language<select id=lang><option value=zh>中文</option><option value=ar>عربي</option><option value=en>English</option></select>
+Display<select id=display><option value=pc>Computer</option><option value=phone>Phone</option></select><br><input type=button value=Go onclick=javascript:gotopage();>
+</div>
+<script>
+function gotopage()
+{
+	location.href = "../" + document.getElementById("lang").value + "/" + document.getElementById("display").value + ".html";
+}
+</script>
