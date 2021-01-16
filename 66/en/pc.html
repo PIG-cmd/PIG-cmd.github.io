@@ -83,7 +83,7 @@ function loadmoney(db)
 	{
 
 		var obj = db.money[db.number];
-		document.getElementById("result").innerHTML += "<br><font color=red> Hello," + name + "</font> !<br>Until now <font color=red>" + db.money.date + "</font><br>, you have accumulated the contribution<font color=red> " + obj.donate + "</font> RMB.<br>There is(are) <font color=red>" + obj.star + "</font> star(s) in your account. | There is(are) <font color=red>" + obj.dot + "</font> dot(s) in your account.<br>";
+		document.getElementById("result").innerHTML += "<br><font color=red> Hello," + name + "</font> !<br>Until <font color=red>" + db.money.date + "</font><br>, you have accumulated the contribution<font color=red> " + obj.donate + "</font> RMB.<br>There is(are) <font color=red>" + obj.star + "</font> star(s) in your account. | There is(are) <font color=red>" + obj.dot + "</font> dot(s) in your account.<br>";
 		obj.canstar = parseInt(obj.dot) % 5;
 		obj.star = parseInt(obj.star);
 		if (obj.star < obj.canstar)
