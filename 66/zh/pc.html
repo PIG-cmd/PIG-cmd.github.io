@@ -109,3 +109,13 @@ function loadmoney(db)
 <center><pre>联系方式 李沪纲 <a href=mailto:fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a> 徐亦辰 <a href=mailto:xyc_35@163.com>xyc_35@163.com</a>
 <hr><br>版权所有 ©2021 班费缴纳系统
 </div>
+<div id=selectlanguage style='position:fixed;bottom:0px;left:0%;background:#00ff00'>
+请选择您的语言<select id=lang><option value=zh>中文</option><option value=ar>عربي</option><option value=en>English</option></select>
+显示<select id=display><option value=pc>电脑端</option><option value=phone>移动端</option></select><br><input type=button value=跳转 onclick=javascript:gotopage();>
+</div>
+<script>
+function gotopage()
+{
+	location.href = "../" + document.getElementById("lang").value + "/" + document.getElementById("display").value + ".html";
+}
+</script>
