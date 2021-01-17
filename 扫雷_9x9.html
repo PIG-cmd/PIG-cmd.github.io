@@ -1,0 +1,226 @@
+<meta charset="utf-8">
+<center><pre>
+<h1><font color=red>扫雷游戏</font>
+<p id=time></p>
+<p id=info></p>
+<p id=all>
+<input type=button value=开始游戏 onclick=javascript:startgame();>
+</p>
+<script>
+sessionStorage.removeItem("finish");
+sessionStorage.removeItem("finish2");
+function startgame()
+{
+	var map = [];
+	var i = 1;
+	var j = 1;
+	while (i != 10)
+	{
+		while (j != 10)
+		{
+			var len = map.length;
+			map[len] = {};
+			map[len].isTNT = "no";
+			map[len].x = i;
+			map[len].y = j;
+			map[len].img = "no.png";
+			j++;
+		}
+		j = 1;
+		i++;
+	}
+	i = 1;
+	var d = 1;
+	while (d != 11)
+	{
+		var xp = Math.ceil(Math.random() * 8 + 1);
+		var yp = Math.ceil(Math.random() * 8 + 1);
+		var k = findblock(map,xp,yp);
+		if (map[k].isTNT == "yes")
+			continue;
+		else
+		{
+			map[k].isTNT = "yes";
+			d++;
+		}
+	}
+	//console.log(map);
+	sessionStorage.setItem("map",JSON.stringify(map));
+	setInterval(function(){
+		map = sessionStorage.getItem("map");
+		map = JSON.parse(map);
+		display(map);
+	},500);
+	sessionStorage.setItem("time",0);
+	setInterval(function(){
+		sessionStorage.setItem("time",parseInt(sessionStorage.getItem('time'))+1);
+		document.getElementById("time").innerHTML = sessionStorage.getItem('time') + "秒";
+	},1000);
+	
+}
+function findblock(dat,x,y)
+{
+	var i = 0;
+	while (i != dat.length && (dat[i].x != x || dat[i].y != y))
+		i++;
+	if (i == dat.length)
+		return -1;
+	else
+		return i;
+}
+function display(dat)
+{
+	////console.log("display");
+	////console.log(dat);
+	document.getElementById("all").innerHTML = "";
+	var i = 1;
+	var j = 1;
+	while (i != 10)
+	{
+		while (j != 10)
+		{
+			var k = findblock(dat,i,j);
+			document.getElementById("all").innerHTML += "<img height=64px width=64px class=img src=" + dat[k].img + " onclick=javascript:openblock(" + i + "," + j + "); onmouseover=javascript:listid(" + i + "," + j + ");>";
+			j++;
+		}
+		document.getElementById("all").innerHTML += "<br>";
+		j = 1;
+		i++;
+	}
+	document.getElementById("all").innerHTML += "<input type=button value=再来一局 onclick=javascript:location.reload();>";
+	i = 1;
+}
+function openblock(x,y)
+{
+	var map = sessionStorage.getItem("map");
+	map = JSON.parse(map);
+	//console.log(map);
+	var k = findblock(map,x,y);
+	//console.log("坐标：" + x + ";" + y);
+	//console.log(k);
+	if (map[k].isTNT == "yes")
+	{
+		//console.log("TNT");
+		if (sessionStorage.getItem("finish") == null)
+			alert("游戏结束！");
+		sessionStorage.setItem("finish","finish");
+		var m = 1;
+		var n = 1;
+		while (m != 10)
+		{
+			while (n != 10)
+			{
+				k = findblock(map,m,n);
+				if (map[k].isTNT == "yes")
+				{
+					map[k].img = "tnt.png";
+					if (sessionStorage.getItem('finish2') == null)
+					{
+						sessionStorage.setItem("map",JSON.stringify(map));
+						sessionStorage.setItem("finish2","finish");
+					}
+					
+				}
+				else
+				{
+					openblock(m,n);
+					//map[k].img = "0.png";
+				}
+				n++;
+			}
+			n = 1;
+			m++;
+		}
+		display(map);
+		
+		
+	} else {
+		//console.log("FALSE");
+	var k2 = 0;
+	k = findblock(map,x+1,y+1);
+	if (k != -1)
+	{
+		if (map[k].isTNT == "yes")
+			k2++;
+	}
+	k = findblock(map,x+1,y+0);
+	if (k != -1)
+	{
+		if (map[k].isTNT == "yes")
+			k2++;
+	}
+	k = findblock(map,x+1,y-1);
+	if (k != -1)
+	{
+		if (map[k].isTNT == "yes")
+			k2++;
+	}
+	k = findblock(map,x+0,y+1);
+	if (k != -1)
+	{
+		if (map[k].isTNT == "yes")
+			k2++;
+	}
+	k = findblock(map,x+0,y-1);
+	if (k != -1)
+	{
+		if (map[k].isTNT == "yes")
+			k2++;
+	}
+	k = findblock(map,x-1,y+1);
+	if (k != -1)
+	{
+		if (map[k].isTNT == "yes")
+			k2++;
+	}
+	k = findblock(map,x-1,y+0);
+	if (k != -1)
+	{
+		if (map[k].isTNT == "yes")
+			k2++;
+	}
+	k = findblock(map,x-1,y-1);
+	if (k != -1)
+	{
+		if (map[k].isTNT == "yes")
+			k2++;
+	}
+	k = findblock(map,x,y);
+	map[k].img = k2 + ".png";
+	//console.log(k2);
+	if (sessionStorage.getItem('finish') != null)
+	{
+		var i = 0;
+		while (i != map.length)
+		{
+			if (map[i].isTNT == "yes")
+				map[i].img = "tnt.png";
+			i++;
+		}
+		var i = 0;
+		while (i != map.length)
+		{
+			if (map[i].img == "no.png")
+				map[i].img = "0.png";
+			i++;
+		}
+		
+	} else {
+		var i = 0;
+		while (i != map.length)
+		{
+			if (map[i].img == "no.png" && (map[i].isTNT == "no"))
+				break;
+			i++;
+		}
+		if (i == map.length)
+		{
+			alert("游戏胜利！");
+		}
+	}
+	sessionStorage.setItem("map",JSON.stringify(map));
+	}
+
+}
+function listid(x,y){document.getElementById("info").innerHTML="鼠标光标位置 X:" + x + " Y:" + y;}
+</script>
