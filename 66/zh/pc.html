@@ -133,26 +133,27 @@ function changeimage()
 function progressbackground()
 {
 	var str = sessionStorage.getItem("imglever");
+	var img = new Image();
 	if (str == null)
 	{
-		document.getElementById("backgroundimg").src = "/eso1242a/eso1242a-Publication.jpg";
+		img.src = "/eso1242a/eso1242a-Publication.jpg";
 		str = 1;
 	}
 	if (str == 2)
 	{
-		document.getElementById("backgroundimg").src = "https://www.eso.org/public/archives/images/publicationtiff/eso1242a.tif";
+		img.src = "https://www.eso.org/public/archives/images/publicationtiff/eso1242a.tif";
 	}
 	if (str == 3)
 	{
-		document.getElementById("backgroundimg").src = "https://www.eso.org/public/archives/images/publicationtiff10k/eso1242a.tif";
+		img.src = "https://www.eso.org/public/archives/images/publicationtiff10k/eso1242a.tif";
 	}
 	if (str == 4)
 	{
-		document.getElementById("backgroundimg").src = "https://www.eso.org/public/archives/images/publicationtiff25k/eso1242a.tif";
+		img.src = "https://www.eso.org/public/archives/images/publicationtiff25k/eso1242a.tif";
 	}
 	if (str == 5)
 	{
-		document.getElementById("backgroundimg").src = "https://www.eso.org/public/archives/images/publicationtiff40k/eso1242a.tif";
+		img.src = "https://www.eso.org/public/archives/images/publicationtiff40k/eso1242a.tif";
 	}
 	if (str > 5)
 	{} else {
@@ -160,7 +161,9 @@ function progressbackground()
 		console.log(str);
 	sessionStorage.setItem("imglever",str);
 		document.getElementById("progressimg").innerHTML = "";
-		document.getElementById("backgroundimg").onload = function () {
+	
+		img.onload = function () {
+			document.getElementById("backgroundimg").src = img.src;
 			document.getElementById("progressimg").innerHTML = "<input type=button value='背景图片更加清晰（警告：这将会消耗网络带宽）' onclick=javascript:progressbackground();>";
 		};
 	}
