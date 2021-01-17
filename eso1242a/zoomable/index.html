@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>VISTA gigapixel mosaic of the central parts of the Milky Way</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            background: #000;
+            overflow: hidden;
+        }
+
+        #zoomcontainer {
+            width: 100%;
+            height: 100%;
+        }
+
+        #ViewerDisplay {
+            background-color: #000 !important;
+        }
+    </style>
+</head>
+<body>
+    
+    <script type="text/javascript">var MEDIA_URL = "https://www.eso.org/public/archives/"</script>
+    <script type="text/javascript" src="https://www.eso.org/public/archives/djp/js/openseadragon.d8db31f00150.js" charset="utf-8"></script>
+    <div id="zoom" style="width: 100%; height: 100%;"></div>
+    <script type="text/javascript">
+        var viewer = OpenSeadragon({
+            id: "zoom",
+            prefixUrl: "https://www.eso.org/public/archives/djp/djangoplicity/openseadragon/images/",
+			maxZoomPixelRatio: 3,
+            animationTime: 1.2,
+            tileSources: [{
+                type:"zoomifytileservice",
+                width: 108199,
+                height: 81503,
+                tilesUrl: "https://cdn.eso.org/images/zoomable/eso1242a/",
+            }]
+        });
+    </script>
+</body>
+</html>
