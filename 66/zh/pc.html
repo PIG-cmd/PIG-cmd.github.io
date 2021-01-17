@@ -135,7 +135,7 @@ function progressbackground()
 {
 	var str = sessionStorage.getItem("imglever");
 	var img = new Image();
-	if (str == null)
+	if (str == null || str == 1)
 	{
 		img.src = "/eso1242a/eso1242a-Publication.jpg";
 		str = 1;
@@ -161,7 +161,7 @@ function progressbackground()
 	str++;
 		console.log(str);
 	sessionStorage.setItem("imglever",str);
-		//document.getElementById("progressimg").innerHTML = "";
+		document.getElementById("progressimg").innerHTML = "";
 	
 		img.onload = function () {
 			document.getElementById("backgroundimg").src = img.src;
