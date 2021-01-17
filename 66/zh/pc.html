@@ -1,7 +1,7 @@
 <title>班费缴纳系统</title>
 <pre>
 <meta charset="utf-8">
-<img src=https://api.dujin.org/bing/1920.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1'>
+<img src=https://api.dujin.org/bing/1920.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1' id=backgroundimg>
 <center>
 <div style='background:skyblue'><font color=red>班费缴纳系统</font><br><div id=status>正在连接数据库......(DataBase:Number Table:Number)</div><div id=result></div></div>
 </center>
@@ -112,8 +112,27 @@ function loadmoney(db)
 <div id=selectlanguage style='position:fixed;bottom:0px;left:0%;background:#00ff00'>
 请选择您的语言<select id=lang><option value=zh>中文</option><option value=ar>عربي</option><option value=en>English</option></select>
 显示<select id=display><option value=pc>电脑端</option><option value=phone>移动端</option></select><br><input type=button value=跳转 onclick=javascript:gotopage();>
+<input type=button value='背景不好看？换一张' onclick=javascript:changeimage();>
+<div id=skyimg></div>
 </div>
 <script>
+function changeimage()
+{
+	if (sessionStorage.getItem('imgid') == null)
+	{
+		sessionStorage.setItem("imgid",1);
+		document.getElementById("backgroundimg").src = "/eso1242a/eso1242a-screen.jpg";
+		document.getElementById("skyimg").innerHTML = "<input type=button value='背景图片更加清晰（警告：这将会消耗网络带宽）' onclick=javascript:progressbackground();><br>背景图片来自ESO<br><a href=/eso1242a/zoomable target=_blank>可缩放页面</a>";
+	} else {
+		sessionStorage.removeItem("imgid");
+		document.getElementById("backgroundimg").src = "https://api.dujin.org/bing/1920.php";
+		document.getElementById("skyimg").innerHTML = "";
+	}
+}
+function progressbackground()
+{
+	document.getElementById("backgroundimg").src = "/eso1242a/eso1242a-Publication.jpg";
+}
 function gotopage()
 {
 	location.href = "../" + document.getElementById("lang").value + "/" + document.getElementById("display").value + ".html";
