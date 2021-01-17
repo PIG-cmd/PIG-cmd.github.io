@@ -6,6 +6,7 @@
 <div style='background:skyblue;z-index:1'><h1><font color=red>班费缴纳系统</font></h1><br><div id=status></div><div id=result></div></div>
 </center>
 <script>
+try {
 var xhr;
 var db;
 setTimeout(function(){
@@ -32,6 +33,9 @@ if (xhr.readyState == 4 && xhr.status == 200)
 }
 },100);
 },50);
+} catch (err) {
+	console.log(err);
+}
 </script>
 <script>
 function search()
