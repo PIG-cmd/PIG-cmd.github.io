@@ -156,6 +156,7 @@ function progressbackground()
 	if (str > 5)
 	{} else {
 	str++;
+		console.log(str);
 	sessionStorage.setItem("imglever",str);
 		document.getElementById("progressimg").disable = true;
 		document.getElementById("backgroundimg").onload = function () {
