@@ -6,6 +6,8 @@
 <div style='background:skyblue;z-index:1'><h1><font color=red>班费缴纳系统</font></h1><br><div id=status></div><div id=result></div></div>
 </center>
 <script>
+if (confirm("是否按照电脑端显示（信息较为丰富，手机显示字体大小和排版可能出现错误）\n建议使用电脑打开"))
+	location.href = "pc.html";
 try {
 var xhr;
 var db;
