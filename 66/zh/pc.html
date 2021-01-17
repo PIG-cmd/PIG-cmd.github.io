@@ -122,7 +122,7 @@ function changeimage()
 	{
 		sessionStorage.setItem("imgid",1);
 		document.getElementById("backgroundimg").src = "/eso1242a/eso1242a-screen.jpg";
-		document.getElementById("skyimg").innerHTML = "<input type=button value='背景图片更加清晰（警告：这将会消耗网络带宽）' onclick=javascript:progressbackground();><br>背景图片来自ESO<br><a href=/eso1242a/zoomable target=_blank>可缩放页面</a>";
+		document.getElementById("skyimg").innerHTML = "<input type=button value='背景图片更加清晰（警告：这将会消耗网络带宽）' onclick=javascript:progressbackground(); id=progressimg><br>背景图片来自ESO<br><a href=/eso1242a/zoomable target=_blank>可缩放页面</a>";
 	} else {
 		sessionStorage.removeItem("imgid");
 		document.getElementById("backgroundimg").src = "https://api.dujin.org/bing/1920.php";
@@ -131,7 +131,38 @@ function changeimage()
 }
 function progressbackground()
 {
-	document.getElementById("backgroundimg").src = "/eso1242a/eso1242a-Publication.jpg";
+	var str = sessionStorage.getItem("imglever");
+	if (str == null)
+	{
+		document.getElementById("backgroundimg").src = "/eso1242a/eso1242a-Publication.jpg";
+		str = 1;
+	}
+	if (str == 2)
+	{
+		document.getElementById("backgroundimg").src = "https://www.eso.org/public/archives/images/publicationtiff/eso1242a.tif";
+	}
+	if (str == 3)
+	{
+		document.getElementById("backgroundimg").src = "https://www.eso.org/public/archives/images/publicationtiff10k/eso1242a.tif";
+	}
+	if (str == 4)
+	{
+		document.getElementById("backgroundimg").src = "https://www.eso.org/public/archives/images/publicationtiff25k/eso1242a.tif";
+	}
+	if (str == 5)
+	{
+		document.getElementById("backgroundimg").src = "https://www.eso.org/public/archives/images/publicationtiff40k/eso1242a.tif";
+	}
+	if (str > 5)
+	{} else {
+	str++;
+	sessionStorage.setItem("imglever",str);
+		document.getElementById("progressimg").disable = true;
+		document.getElementById("backgroundimg").onload = function () {
+			document.getElementById("progressimg").disabled = false;
+		};
+	}
+			       
 }
 function gotopage()
 {
