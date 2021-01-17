@@ -40,6 +40,11 @@
                 tilesUrl: "https://cdn.eso.org/images/zoomable/eso1242a/",
             }]
         });
+	    setTimeout(function(){
+		    if (ua.match(/MicroMessenger/i) == "micromessenger" && ) {
+			    document.write("<h1>微信浏览器打开该网页会出现错误<br>手机端请点击右上方三个点，选择用浏览器打开<br>电脑端请点击上方第五个按钮用默认浏览器打开");
+	    }
+		       },1000);
     </script>
 </body>
 </html>
