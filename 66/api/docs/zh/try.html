@@ -45,7 +45,7 @@ if (url != null)
 if (str != null)
     document.getElementById("getstr").value = str;
 try {
-    document.getElementById("responseinfo").value = location.hash.substring(1);
+    document.getElementById("responseinfo").value = decodeURI(location.hash.substring(1));
 } catch (e) { console.log(e); }
 </script>
         
