@@ -24,7 +24,7 @@
 <font color=black>
 请求URL：<input type=text value=https://pig-cmd.github.io/66/api id=geturl>
 请求参数<br>
-returnurl=<input type=text placeholder=string id=getstr value='returnurl=https://pig-cmd.github.io/66/api/docs/zh/try.html'>
+returnurl=<input type=text placeholder=string id=getstr value='https://pig-cmd.github.io/66/api/docs/zh/try.html'>
 findtype=<input type=text id=findtype>
 pid=<input type=text id=pid>
 <input type=button value=请求 onclick=javascript:requestapi();>
@@ -41,7 +41,7 @@ function requestapi()
         sessionStorage.setItem("str",str);
         sessionStorage.setItem("pid",pid);
         sessionStorage.setItem("findtype",findtype);
-        location.href = url + "?returnurl=" + returnurl + "&pid=" + pid + "&findtype=" + findtype + "&from=/66/api/docx/zh/try";
+        location.href = url + "?returnurl=" + url + "&pid=" + pid + "&findtype=" + findtype + "&from=/66/api/docx/zh/try";
     
 }
 var url = sessionStorage.getItem("url");
