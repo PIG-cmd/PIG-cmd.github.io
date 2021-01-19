@@ -1,0 +1,50 @@
+<meta charset="utf-8">
+<title>实战演练</title>
+<center><pre style='font-family:Cursive,Helvetica,sans-serif;white-space:pre-wrap'><font color=red><span style='font-size:3em'>实战演练</span>
+<a href=../en target=_blank>English</a>
+<a href=../../../ target=_blank><span style='font-size:2em;color:red;background:yellow'>班费缴纳系统</span></a> <a href=../../../about.html target=_blank><span style='font-size:2em;color:red;background:yellow'>关于我们</span></a> <a href=./ target=_blank><span style='font-size:2em;color:red;background:yellow'>返回主页</span></a> 
+<div style='font-size:1.2em'>联系方式</div>
+组织邮箱 <a href="mailto:zqzx2024c6@outlook.com">zqzx2024c6@outlook.com</a>
+徐亦辰 <a href="mailto:xyc_35@163.com">xyc_35@163.com</a>
+李沪纲 <a href="mailto:fat-pig-2020@outlook.com">fat-pig-2020@outlook.com</a>
+</div>
+<hr>
+<style>
+
+.mask {
+    background-color: #252525;
+    color: #252525;
+    transition: color 0.5s;
+}
+
+.mask:hover {
+    color: #ffffff;
+}
+</style>
+<font color=black>
+请求URL：<input type=text value=https://pig-cmd.github.io/66/api id=geturl>
+请求参数：<input type=text placeholder=string id=getstr>
+介质：iframe框架
+<input type=button value=请求 onclick=javascript:requestapi();>
+返回信息
+<textarea cols=100 rows=20 id=responseinfo></textarea>
+<iframe id=requestframe style='display:none'></iframe>
+<script>
+function requestapi()
+{
+        var url = document.getElementById("geturl").value;
+        var str = document.getElementById("getstr").value;
+        document.getElementById("requestframe").src = url + "?" + str;
+        setTimeout(function(){
+                document.getElementById("responseinfo").value = decodeURI(document.getElementById("requestframe").contentWindow.locaton.hash.substring(1));
+        },3000);
+}
+</script>
+        
+<hr>
+<div style="text-align:center;background-image:url(&quot;https://pig-cmd.github.io/eso1242a/eso1242a-screen.jpg&quot;);color:yellow">
+版权所有 © 班费缴纳系统 2021
+数据库维护以及提供资料 徐亦辰 xyc_35@163.com
+代码架构编写以及维护 李沪纲 fat-pig-2020@outlook.com
+<br><br><br><span style="font-size:0.5em">条条大路通川陀，群星尽头，此之谓也</span>
+</div>
