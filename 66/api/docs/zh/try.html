@@ -28,17 +28,25 @@
 <input type=button value=请求 onclick=javascript:requestapi();>
 返回信息
 <textarea cols=100 rows=20 id=responseinfo></textarea>
-<iframe id=requestframe style='display:none'></iframe>
 <script>
 function requestapi()
 {
         var url = document.getElementById("geturl").value;
         var str = document.getElementById("getstr").value;
-        document.getElementById("requestframe").src = url + "?" + str;
-        setTimeout(function(){
-                document.getElementById("responseinfo").value = decodeURI(document.getElementById("requestframe").contentWindow.locaton.hash.substring(1));
-        },3000);
+        sessionStorage.setItem("url",url);
+        sessionStorage.setItem("str",str);
+        location.href = url + "?" + str;
+    
 }
+var url = sessionStorage.getItem("url");
+var str = sessionStorage.getItem("str");
+if (url != null)
+    document.getElementById("geturl").value = url;
+if (str != null)
+    document.getElementById("getstr").value = str;
+try {
+    document.getElementById("responseinfo").value = location.hash.substring(1);
+} catch (e) { console.log(e); }
 </script>
         
 <hr>
