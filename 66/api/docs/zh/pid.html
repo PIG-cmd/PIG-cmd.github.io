@@ -1,0 +1,52 @@
+<meta charset="utf-8">
+<title>请求参数</title>
+<center><pre style='font-family:Cursive,Helvetica,sans-serif;white-space:pre-wrap'><font color=red><span style='font-size:3em'>请求参数</span>
+<a href=../en target=_blank>English</a>
+<a href=../../../ target=_blank><span style='font-size:2em;color:red;background:yellow'>班费缴纳系统</span></a> <a href=../../../about.html target=_blank><span style='font-size:2em;color:red;background:yellow'>关于我们</span></a> <a href=./ target=_blank><span style='font-size:2em;color:red;background:yellow'>返回主页</span></a> 
+<div style='font-size:1.2em'>联系方式</div>
+组织邮箱 <a href="mailto:zqzx2024c6@outlook.com">zqzx2024c6@outlook.com</a>
+徐亦辰 <a href="mailto:xyc_35@163.com">xyc_35@163.com</a>
+李沪纲 <a href="mailto:fat-pig-2020@outlook.com">fat-pig-2020@outlook.com</a>
+</div>
+<hr>
+<style>
+
+.mask {
+    background-color: #252525;
+    color: #252525;
+    transition: color 0.5s;
+}
+
+.mask:hover {
+    color: #ffffff;
+}
+</style>
+<font color=black>
+API请求时除了需要参数<span style='background:yellow;color:red'>findtype</span>外，还需要一个参数<span style='background:yellow;color:red'>pid</span>
+当<span style='background:yellow;color:red'>findtype</span>为<span style='background:yellow;color:red'>number</span>时，<span style='background:yellow;color:red'>pid</span>应该是学号
+当<span style='background:yellow;color:red'>findtype</span>为<span style='background:yellow;color:red'>name</span>时，<span style='background:yellow;color:red'>pid</span>应该是名字
+名字需要经过encodeURI()方法转化 
+输入需要转化的字符串<input type=text id=ceu placeholder=String><input type=button value=在线转化 onclick=javascript:ceu();>
+<script>
+function ceu()
+{
+        document.getElementById("ceu").value = encodeURI(document.getElementById("ceu").value;
+}
+</script>
+当<span style='background:yellow;color:red'>findtype</span>为<span style='background:yellow;color:red'>donate</span>时，<span style='background:yellow;color:red'>pid</span>应该为数字（浮点数）
+当<span style='background:yellow;color:red'>findtype</span>为<span style='background:yellow;color:red'>dot</span>或<span style='background:yellow;color:red'>star</span>时，<span style='background:yellow;color:red'>pid</span>应该为整数
+如果pid不匹配的话，服务器会返回<span style='background:yellow;color:red'>Database request error: The corresponding primary key could not be found in the database</span>
+注：上面英文注解为<br>
+<span style='background:yellow;color:red'>findtype:查找类型</span>
+<span style='background:yellow;color:red'>number:学号</span>
+<span style='background:yellow;color:red'>name:姓名</span>
+<span style='background:yellow;color:red'>donate:捐款</span>
+<span style='background:yellow;color:red'>dot:点</span>
+<span style='background:yellow;color:red'>star:星</span>
+<hr>
+<div style="text-align:center;background-image:url(&quot;https://pig-cmd.github.io/eso1242a/eso1242a-screen.jpg&quot;);color:yellow">
+版权所有 © 班费缴纳系统 2021
+数据库维护以及提供资料 徐亦辰 xyc_35@163.com
+代码架构编写以及维护 李沪纲 fat-pig-2020@outlook.com
+<br><br><br><span style="font-size:0.5em">条条大路通川陀，群星尽头，此之谓也</span>
+</div>
