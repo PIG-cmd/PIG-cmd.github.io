@@ -22,6 +22,8 @@
 }
 </style>
 <font color=black>
+您需要在请求参数中使用<span style='background:yellow;color:red'>returnurl</span>
+这个键的值是api将页面重导向的URL
 返回参数会以描点的形式，采用JSON字符串，经过encodeURI加密
 开发人员可以用<span style='background:yellow;color:red'>JSON.parse(decodeURI(location.hash.substring(1)))</span>来获得返回的对象
 <hr>
