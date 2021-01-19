@@ -1,0 +1,36 @@
+<meta charset="utf-8">
+<title>API查找格式</title>
+<center><pre style='font-family:Cursive,Helvetica,sans-serif;white-space:pre-wrap'><font color=red><span style='font-size:3em'>API查找格式</span>
+<a href=../en target=_blank>English</a>
+<a href=../../../ target=_blank><span style='font-size:2em;color:red;background:yellow'>班费缴纳系统</span></a> <a href=../../../about.html target=_blank><span style='font-size:2em;color:red;background:yellow'>关于我们</span></a> <a href=./ target=_blank><span style='font-size:2em;color:red;background:yellow'>返回主页</span></a> 
+<div style='font-size:1.2em'>联系方式</div>
+组织邮箱 <a href="mailto:zqzx2024c6@outlook.com">zqzx2024c6@outlook.com</a>
+徐亦辰 <a href="mailto:xyc_35@163.com">xyc_35@163.com</a>
+李沪纲 <a href="mailto:fat-pig-2020@outlook.com">fat-pig-2020@outlook.com</a>
+</div>
+<hr>
+<style>
+
+.mask {
+    background-color: #252525;
+    color: #252525;
+    transition: color 0.5s;
+}
+
+.mask:hover {
+    color: #ffffff;
+}
+</style>
+<font color=black>
+API请求时需要指定参数<span style='background:yellow;color:red'>findtype</span> 
+这个参数可以取5个值<span style='background:yellow;color:red'>number</span> <span style='background:yellow;color:red'>name</span> <span style='background:yellow;color:red'>donate</span> <span style='background:yellow;color:red'>dot</span> <span style='background:yellow;color:red'>star</span>
+这个参数通常和<span style='background:yellow;color:red'>pid</span>参数一起出现，关于pid的用法，请见下一章<a href=pid.html target=_blank>请求参数 - pid</a>
+如果这个参数没有的话，服务器会返回信息 <span style='background:yellow;color:red'>API request error: The query format is not specified</span>
+如果这个参数的值错误的话，服务器会返回信息 <span style='background:yellow;color:red'>API request error: The server could not find a matching database, check that the 'findtype' parameter in the request is correct</span>
+<hr>
+<div style="text-align:center;background-image:url(&quot;https://pig-cmd.github.io/eso1242a/eso1242a-screen.jpg&quot;);color:yellow">
+版权所有 © 班费缴纳系统 2021
+数据库维护以及提供资料 徐亦辰 xyc_35@163.com
+代码架构编写以及维护 李沪纲 fat-pig-2020@outlook.com
+<br><br><br><span style="font-size:0.5em">条条大路通川陀，群星尽头，此之谓也</span>
+</div>
