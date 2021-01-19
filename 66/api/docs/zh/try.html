@@ -23,8 +23,10 @@
 </style>
 <font color=black>
 请求URL：<input type=text value=https://pig-cmd.github.io/66/api id=geturl>
-请求参数：<input type=text placeholder=string id=getstr value='returnurl=https://pig-cmd.github.io/66/api/docs/zh/try.html'>
-介质：iframe框架
+请求参数<br>
+returnurl=<input type=text placeholder=string id=getstr value='returnurl=https://pig-cmd.github.io/66/api/docs/zh/try.html'>
+findtype=<input type=text id=findtype>
+pid=<input type=text id=pid>
 <input type=button value=请求 onclick=javascript:requestapi();>
 返回信息
 <textarea cols=100 rows=20 id=responseinfo></textarea>
@@ -33,17 +35,28 @@ function requestapi()
 {
         var url = document.getElementById("geturl").value;
         var str = document.getElementById("getstr").value;
+        var pid = document.getElementById("pid").value;
+        var findtype = document.getElementById("findtype").value
         sessionStorage.setItem("url",url);
         sessionStorage.setItem("str",str);
-        location.href = url + "?" + str;
+        sessionStorage.setItem("pid",pid);
+        sessionStorage.setItem("findtype",findtype);
+        location.href = url + "?returnurl=" + returnurl + "&pid=" + pid + "&findtype=" + findtype + "&from=/66/api/docx/zh/try";
     
 }
 var url = sessionStorage.getItem("url");
 var str = sessionStorage.getItem("str");
+var pid = sessionStorage.getItem("pid");
+var findtype = sessionStorage.getItem("findtype");
 if (url != null)
     document.getElementById("geturl").value = url;
 if (str != null)
     document.getElementById("getstr").value = str;
+if (pid != null)
+    document.getElementById("getstr").value = pid;
+if (findtype != null)
+    document.getElementById("getstr").value = findtype;
+
 try {
     document.getElementById("responseinfo").value = decodeURI(location.hash.substring(1));
 } catch (e) { console.log(e); }
