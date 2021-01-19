@@ -219,6 +219,7 @@ if (typeof _pigcmd_get_object != "undefined")
 	if (typeof _pigcmd_get_object.returnurl != "undefined")
 	{
 		try {
+			_pigcmd_default_response.date = _pigcmd_DataBase.money.date;
 			location.href = _pigcmd_get_object.returnurl + "#" + encodeURI(JSON.stringify(_pigcmd_default_response));
 		} catch (err) {
 			var _pigcmd_default_response = {}; _pigcmd_default_response.status = "Error"; _pigcmd_default_response.reason = "The JS script engine handled the error and could not return the specified variable, as detailed in the script engine error prompt:" + err;
