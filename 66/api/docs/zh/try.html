@@ -41,7 +41,7 @@ function requestapi()
         sessionStorage.setItem("str",str);
         sessionStorage.setItem("pid",pid);
         sessionStorage.setItem("findtype",findtype);
-        location.href = url + "?returnurl=" + url + "&pid=" + pid + "&findtype=" + findtype + "&from=/66/api/docx/zh/try";
+        location.href = url + "?returnurl=" + str + "&pid=" + pid + "&findtype=" + findtype + "&from=/66/api/docx/zh/try";
     
 }
 var url = sessionStorage.getItem("url");
