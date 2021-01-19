@@ -1,0 +1,230 @@
+<script>
+var _pigcmd_get_str = location.href.split("?")[1];
+try {
+	_pigcmd_get_str = _pigcmd_get_str.split("&");
+	var _pigcmd_add_number = 0;
+	var _pigcmd_get_object = {};
+	while (_pigcmd_add_number != _pigcmd_get_str.length)
+	{
+		var _pigcmd_current = _pigcmd_get_str[_pigcmd_add_number].split("=");
+		_pigcmd_get_object[_pigcmd_current[0]] = _pigcmd_current[1];
+		_pigcmd_add_number++;
+	}
+	console.log(_pigcmd_get_object);
+} catch (err) { var _pigcmd_default_response = {}; _pigcmd_default_response.status = "Error"; _pigcmd_default_response.reason = "The API request was wrong and the requested URL does not contain parameters"; console.log(err);}
+if (typeof _pigcmd_get_object != "undefined")
+{
+	if (typeof _pigcmd_get_object.findtype == "undefined")
+	{
+		var _pigcmd_default_response = {};
+		_pigcmd_default_response.status = "Error";
+		_pigcmd_default_response.reason = "API request error: The query format is not specified";
+	} else {
+		if (_pigcmd_get_object.findtype == "number" || _pigcmd_get_object.findtype == "name" || _pigcmd_get_object.findtype == "donate" || _pigcmd_get_object.findtype == "star" || _pigcmd_get_object.findtype == "dot")
+		{
+			let _pigcmd_xhr;
+			var _pigcmd_DataBase = {};
+			if (window.XMLHttpRequest)
+			{
+				_pigcmd_xhr = new XMLHttpRequest();
+			} else {
+				_pigcmd_xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			_pigcmd_xhr.open("GET","../../../number.txt",false);
+			_pigcmd_xhr.send();
+			_pigcmd_DataBase.number = JSON.parse(unescape(_pigcmd_xhr.responseText));
+			let _pigcmd_xhr2;
+			if (window.XMLHttpRequest)
+			{
+				_pigcmd_xhr2 = new XMLHttpRequest();
+			} else {
+				_pigcmd_xhr2 = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			_pigcmd_xhr2.open("GET","../../../money.txt",false);
+			_pigcmd_xhr2.send();
+			_pigcmd_DataBase.money = JSON.parse(unescape(_pigcmd_xhr2.responseText));
+			var _pid = _pigcmd_get_object.pid;
+			if (typeof _pid == "undefined")
+			{
+				var _pigcmd_default_response = {};
+				_pigcmd_default_response.status = "Error";
+				_pigcmd_default_response.reason = "API request error: Parameter 'PID' is not included in the request";
+			} else {
+				if (_pigcmd_get_object.findtype == "number")
+				{
+					if ( typeof _pigcmd_DataBase.number[_pid] != "undefined")
+					{
+						_pigcmd_DataBase.returnobj = {};
+						_pigcmd_DataBase.returnobj.number = _pid;
+						_pigcmd_DataBase.returnobj.name = _pigcmd_DataBase.number[_pid];
+						_pigcmd_DataBase.returnobj.donate = _pigcmd_DataBase.money[_pid].donate;
+						_pigcmd_DataBase.returnobj.dot = _pigcmd_DataBase.money[_pid].dot;
+						_pigcmd_DataBase.returnobj.star = _pigcmd_DataBase.money[_pid].star;
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "OK";
+						_pigcmd_default_response.response = _pigcmd_DataBase.returnobj;
+					} else {
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "Error";
+						_pigcmd_default_response.reason = "Database request error: The corresponding primary key could not be found in the database";
+					}
+				};
+				if (_pigcmd_get_object.findtype == "name")
+				{
+					_pid = decodeURI(_pid);
+					var _pigcmd_add_number = 1;
+					while (_pigcmd_add_number != 36)
+					{
+						if (_pigcmd_DataBase.number[_pigcmd_add_number] == _pid)
+						{
+							var _pid_number = _pigcmd_add_number;
+							break;
+						}
+						_pigcmd_add_number++;
+					}
+					if (typeof _pid_number == "undefined")
+					{
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "Error";
+						_pigcmd_default_response.reason = "Database request error: The corresponding primary key could not be found in the database";
+					} else {
+						_pid = _pid_number;
+						_pigcmd_DataBase.returnobj = {};
+						_pigcmd_DataBase.returnobj.number = _pid;
+						_pigcmd_DataBase.returnobj.name = _pigcmd_DataBase.number[_pid];
+						_pigcmd_DataBase.returnobj.donate = _pigcmd_DataBase.money[_pid].donate;
+						_pigcmd_DataBase.returnobj.dot = _pigcmd_DataBase.money[_pid].dot;
+						_pigcmd_DataBase.returnobj.star = _pigcmd_DataBase.money[_pid].star;
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "OK";
+						_pigcmd_default_response.response = _pigcmd_DataBase.returnobj;
+					}
+				};
+				if (_pigcmd_get_object.findtype == "donate")
+				{
+					var _pigcmd_add_number = 1;
+					var _pcc = [];
+					while (_pigcmd_add_number != 36)
+					{
+						
+						if (_pigcmd_DataBase.money[_pigcmd_add_number].donate == _pid)
+							_pcc[_pcc.length] = _pigcmd_add_number;
+						_pigcmd_add_number++;
+					}
+
+					if (_pcc.length == 0)
+					{
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "Error";
+						_pigcmd_default_response.reason = "Database request error: The corresponding primary key could not be found in the database";
+					} else {
+						_pigcmd_add_number = 0;
+						_pigcmd_DataBase.returnobj = [];
+						while (_pigcmd_add_number != _pcc.length)
+						{
+							_pid = _pcc[_pigcmd_add_number];
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number] = {};
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].number = _pid;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].name = _pigcmd_DataBase.number[_pid];
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].donate = _pigcmd_DataBase.money[_pid].donate;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].dot = _pigcmd_DataBase.money[_pid].dot;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].star = _pigcmd_DataBase.money[_pid].star; 
+							_pigcmd_add_number++;
+						}
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "OK";
+						_pigcmd_default_response.response = _pigcmd_DataBase.returnobj;
+					}
+				};
+				if (_pigcmd_get_object.findtype == "star")
+				{
+					var _pigcmd_add_number = 1;
+					var _pcc = [];
+					while (_pigcmd_add_number != 36)
+					{
+						
+						if (_pigcmd_DataBase.money[_pigcmd_add_number].star == _pid)
+							_pcc[_pcc.length] = _pigcmd_add_number;
+						_pigcmd_add_number++;
+					}
+					if (_pcc.length == 0)
+					{
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "Error";
+						_pigcmd_default_response.reason = "Database request error: The corresponding primary key could not be found in the database";
+					} else {
+						_pigcmd_add_number = 0;
+						_pigcmd_DataBase.returnobj = [];
+						while (_pigcmd_add_number != _pcc.length)
+						{
+							_pid = _pcc[_pigcmd_add_number];
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number] = {};
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].number = _pid;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].name = _pigcmd_DataBase.number[_pid];
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].donate = _pigcmd_DataBase.money[_pid].donate;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].dot = _pigcmd_DataBase.money[_pid].dot;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].star = _pigcmd_DataBase.money[_pid].star; 
+							_pigcmd_add_number++;
+						}
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "OK";
+						_pigcmd_default_response.response = _pigcmd_DataBase.returnobj;
+					}
+				};
+
+				if (_pigcmd_get_object.findtype == "dot")
+				{
+					var _pigcmd_add_number = 1;
+					var _pcc = [];
+					while (_pigcmd_add_number != 36)
+					{
+						
+						if (_pigcmd_DataBase.money[_pigcmd_add_number].dot == _pid)
+							_pcc[_pcc.length] = _pigcmd_add_number;
+						_pigcmd_add_number++;
+					}
+					if (_pcc.length == 0)
+					{
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "Error";
+						_pigcmd_default_response.reason = "Database request error: The corresponding primary key could not be found in the database";
+					} else {
+						_pigcmd_add_number = 0;
+						_pigcmd_DataBase.returnobj = [];
+						while (_pigcmd_add_number != _pcc.length)
+						{
+							_pid = _pcc[_pigcmd_add_number];
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number] = {};
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].number = _pid;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].name = _pigcmd_DataBase.number[_pid];
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].donate = _pigcmd_DataBase.money[_pid].donate;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].dot = _pigcmd_DataBase.money[_pid].dot;
+							_pigcmd_DataBase.returnobj[_pigcmd_add_number].star = _pigcmd_DataBase.money[_pid].star; 
+							_pigcmd_add_number++;
+						}
+						var _pigcmd_default_response = {};
+						_pigcmd_default_response.status = "OK";
+						_pigcmd_default_response.response = _pigcmd_DataBase.returnobj;
+					
+
+					}
+				};
+			}
+		} else {
+			var _pigcmd_default_response = {};
+			_pigcmd_default_response.status = "Error";
+			_pigcmd_default_response.reason = "API request error: The server could not find a matching database, check that the 'findtype' parameter in the request is correct";
+		}
+	}
+	if (typeof _pigcmd_get_object.returnurl != "undefined")
+	{
+		try {
+			location.href = _pigcmd_get_object.returnurl + "#" + encodeURI(JSON.stringify(_pigcmd_default_response));
+		} catch (err) {
+			var _pigcmd_default_response = {}; _pigcmd_default_response.status = "Error"; _pigcmd_default_response.reason = "The JS script engine handled the error and could not return the specified variable, as detailed in the script engine error prompt:" + err;
+			console.log(err);
+		};
+	}
+}
+console.log(_pigcmd_default_response);
+</script>
