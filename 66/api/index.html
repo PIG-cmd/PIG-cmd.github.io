@@ -30,7 +30,7 @@ if (typeof _pigcmd_get_object != "undefined")
 			} else {
 				_pigcmd_xhr = new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			_pigcmd_xhr.open("GET","../../../number.txt",false);
+			_pigcmd_xhr.open("GET","../number.txt",false);
 			_pigcmd_xhr.send();
 			_pigcmd_DataBase.number = JSON.parse(unescape(_pigcmd_xhr.responseText));
 			let _pigcmd_xhr2;
@@ -40,7 +40,7 @@ if (typeof _pigcmd_get_object != "undefined")
 			} else {
 				_pigcmd_xhr2 = new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			_pigcmd_xhr2.open("GET","../../../money.txt",false);
+			_pigcmd_xhr2.open("GET","../money.txt",false);
 			_pigcmd_xhr2.send();
 			_pigcmd_DataBase.money = JSON.parse(unescape(_pigcmd_xhr2.responseText));
 			var _pid = _pigcmd_get_object.pid;
