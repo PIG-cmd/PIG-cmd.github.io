@@ -111,15 +111,16 @@ function loadmoney(db)
         var bmob = require("/bmobSDK.js");
         bmob.initialize("382ba707c52a8883","081125");
         const query = bmob.Query("ReadData");
-        query.set("name",New Date());
+        query.set("name",new Date());
         query.set("content","Request Page:GUI RequestType:Number RequestContent:" + db.number);
-        query.save().then(res => {
+       /* query.save().then(res => {
              console.log(res);
              alert(res);
         }).catch(err => {
              console.log(err)
              alert(err);
-        })
+        })*/
+        query.save();
         },1000);
         } catch (err) {alert(err);}
 
