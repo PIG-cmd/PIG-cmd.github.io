@@ -113,7 +113,7 @@ function loadmoney(db)
 		Bmob.initialize("382ba707c52a8883","081125");
 		const query = Bmob.Query('ReadData');
 		query.set("name",new Date())
-		query.set("content","Log Create Time:" + new Date() + " | Request Type:Number Page:GUI requestform:pid=" + db.number + "&ipv4=" + sessionStorage.getItem('ip') + "&navigator=" + navigator.appName + "|" + navigator.appVersion);
+		query.set("content","Log Create Time:" + new Date() + " | Request Type:Number Page:GUI requestform:pid=" + db.number + "&navigator=" + navigator.appName + "|" + navigator.appVersion);
 		query.save().then(res => {
   			console.log(res);
 		}).catch(err => {
