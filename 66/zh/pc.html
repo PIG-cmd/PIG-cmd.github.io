@@ -105,17 +105,23 @@ function loadmoney(db)
 		r.innerHTML += "<br>您为班级作出的贡献占到全部的<font color=red>" + donatepercent.toFixed(2) + "%</font>";
 
 	}
-        //Connect the database
+        try{
+        setTimeout(function(){
+        //Connect the databases
         var bmob = require("/bmobSDK.js");
         bmob.initialize("382ba707c52a8883","081125");
         const query = bmob.Query('ReadData");
         query.set("name",New Date());
         query.set("content","Request Page:GUI RequestType:Number RequestContent:" + db.number);
         query.save().then(res => {
-             console.log(res)
+             console.log(res);
+             alert(res);
         }).catch(err => {
              console.log(err)
+             alert(err);
         })
+        },1000);
+        } catch (err) {alert(err);}
 
         
 }
