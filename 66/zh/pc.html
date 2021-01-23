@@ -120,7 +120,8 @@ function loadmoney(db)
              console.log(err)
              alert(err);
         })*/
-        query.save();
+        var q = query.save();
+alert(q);alert(JSON.stringify(q));
         },1000);
         } catch (err) {alert(err);}
 
