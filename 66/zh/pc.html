@@ -2,10 +2,13 @@
 <pre>
 <meta charset="utf-8">
 <img src=https://api.dujin.org/bing/1920.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1' id=backgroundimg>
+<script src=/bmobSDK.js></script>
+<script src=http://pv.sohu.com/cityjson></script>
 <center>
 <div style='background:skyblue'><font color=red>班费缴纳系统</font><br><div id=status>正在连接数据库......(DataBase:Number Table:Number)</div><div id=result></div></div>
 </center>
 <script>
+sessionStorage.setItem("ip",returnCitySN[cip]);
 var xhr;
 var db;
 sessionStorage.setItem("imglever",1);
@@ -105,25 +108,17 @@ function loadmoney(db)
 		r.innerHTML += "<br>您为班级作出的贡献占到全部的<font color=red>" + donatepercent.toFixed(2) + "%</font>";
 
 	}
-        try{
-        setTimeout(function(){
-        //Connect the databases
-        var bmob = require("/bmobSDK.js");
-        bmob.initialize("382ba707c52a8883","081125");
-        const query = bmob.Query("ReadData");
-        query.set("name",new Date());
-        query.set("content","Request Page:GUI RequestType:Number RequestContent:" + db.number);
-        query.save().then(res => {
-             console.log(res);
-             alert(res);
-        }).catch(err => {
-             console.log(err)
-             alert(err);
-        });
-        //var q = query.save();
-//alert(q);alert(JSON.stringify(q));
-        },1000);
-        } catch (err) {alert(err);}
+	setTimeout(function(){
+		Bmob.initialize("382ba707c52a8883","081125");
+		const query = Bmob.Query('tableName');
+		query.set("name",new Date())
+		query.set("content","Log Create Time:" + new Date() + " | Request Type:Number Page:GUI requestform:pid=" + db.number + "&ipv4=" + sessionStorage.getItem('ip') + "&navigator=" + navigator.appName + "|" + navigator.appVersion);
+		query.save().then(res => {
+  			console.log(res);
+		}).catch(err => {
+  			console.log(err);
+		})
+	},1000);
 
         
 }
