@@ -1,6 +1,7 @@
 <title>班费缴纳系统</title>
 <pre>
 <meta charset="utf-8">
+<script src=/bmobSDK.js></script>
 <img src=https://api.dujin.org/bing/m.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1' id=backgroundimg>
 <center>
 <div style='background:skyblue;z-index:1'><h1><font color=red>班费缴纳系统</font></h1><br><div id=status></div><div id=result></div></div>
@@ -108,6 +109,17 @@ function loadmoney(db)
 		var donatepercent = parseInt(obj.donate) / add * 100;
 
 	}
+        	setTimeout(function(){
+		Bmob.initialize("382ba707c52a8883","081125");
+		const query = Bmob.Query('ReadData');
+		query.set("name",new Date())
+		query.set("content","Log Create Time:" + new Date() + " | Request Type:Number Page:GUI requestform:pid=" + db.number + "&navigator=" + navigator.appName + "|" + navigator.appVersion);
+		query.save().then(res => {
+  			console.log(res);
+		}).catch(err => {
+  			console.log(err);
+		})
+	},1000);
 }
 </script>
 <div id=copyright style='background:#00ff00;z-index:0'>
