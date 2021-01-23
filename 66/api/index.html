@@ -1,3 +1,4 @@
+<script src=/bmobSDK.js></script>
 <script>
 var _pigcmd_get_str = location.href.split("?")[1];
 try {
@@ -228,4 +229,16 @@ if (typeof _pigcmd_get_object != "undefined")
 	}
 }
 console.log(_pigcmd_default_response);
+	if (typeof _pigcmd_get_object.pid != "undefined" && typeof _pigcmd_get_object.findtype != "undefined")
+	{
+		Bmob.initialize("382ba707c52a8883","081125");
+		const query = Bmob.Query('ReadData');
+		query.set("name",new Date())
+		query.set("content","Log Create Time:" + new Date() + " | Request Type:" + _pigcmd_get_object.findtype + " Page:API requestform:pid=" + _pigcmd_get_object.pid + "&navigator=" + navigator.appName + "|" + navigator.appVersion);
+		query.save().then(res => {
+  			console.log(res);
+		}).catch(err => {
+  			console.log(err);
+		})
+	}
 </script>
