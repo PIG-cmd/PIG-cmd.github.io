@@ -110,7 +110,7 @@ function loadmoney(db)
         //Connect the databases
         var bmob = require("/bmobSDK.js");
         bmob.initialize("382ba707c52a8883","081125");
-        const query = bmob.Query('ReadData");
+        const query = bmob.Query("ReadData");
         query.set("name",New Date());
         query.set("content","Request Page:GUI RequestType:Number RequestContent:" + db.number);
         query.save().then(res => {
