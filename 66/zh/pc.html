@@ -6,6 +6,8 @@
 <div style='background:skyblue'><font color=red>班费缴纳系统</font><br><div id=status>正在连接数据库......(DataBase:Number Table:Number)</div><div id=result></div></div>
 </center>
 <script>
+sessionStorage.removeItem("imgid");
+sessionStorage.removeItem("imglever");
 var xhr;
 var db;
 setTimeout(function(){
@@ -116,7 +118,9 @@ function loadmoney(db)
 }
 </script>
 <div id=copyright style='position:fixed;bottom:0px;right:0%;background:skyblue'>
-<center><pre>联系方式 李沪纲 <a href=mailto:fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a> 徐亦辰 <a href=mailto:xyc_35@163.com>xyc_35@163.com</a>
+<center><pre>联系方式 李沪纲 <a href=mailto:fat-pig-2020@outlook.com>fat-pig-2020@outlook.com</a> 徐亦辰 <a href=mailto:xyc_35@163.com>xyc_35@163.com</a><br>
+<a href=/66/about.html target=_blank>关于我们</a>
+<a href=/66/api/docs/zh target=_blank>开放平台</a>
 <hr><br>版权所有 ©2021 班费缴纳系统
 </div>
 <div id=selectlanguage style='position:fixed;bottom:0px;left:0%;background:#00ff00'>
