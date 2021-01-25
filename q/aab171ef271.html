@@ -1,13 +1,25 @@
 <meta charset="utf-8">
 <title>问卷调查 - aab171ef271</title>
-<center><pre style='font-size=3em'>问卷调查</pre>
-<pre style='font-size=1.5em'>编号aab171ef271</pre>
-<pre style='font-size=1.2em'><a href=mailto:fat-pig-2020@outlook.com>申请发起一份问卷调查</a>
+<script src=/bmobSDK.js></script>
+<center><span style='font-size=3em'>问卷调查</span>
+<span style='font-size=1.5em'>编号aab171ef271</span>
+<span style='font-size=1.2em'><a href=mailto:fat-pig-2020@outlook.com>申请发起一份问卷调查</a></span>
 <span style='font-size:2em'>请输入您的姓名<input type=text maxlength=16 id=myname>
-请输入您心上人的名字<input type=button maxlength=16 id=heart>
+请输入您心上人的名字<input type=text maxlength=16 id=heart>
 <input type=button value=提交 onclick=javascript:submitform();>
 <script>
 function submitform()
 {
+
+Bmob.initialize("5200d7f4ce3ea3d7","081126");
+
+const query = Bmob.Query('aab171ef271');
+query.set("content","name=" + document.getElementById("myname").value + "&heart=" + document.getElementById("heart"));
+query.save().then(res => {
+  console.log(res)
+}).catch(err => {
+  console.log(err)
+})
+
 }
 </script>
