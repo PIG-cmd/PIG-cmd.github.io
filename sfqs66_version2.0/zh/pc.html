@@ -1,0 +1,138 @@
+<!doctype html>
+<meta charset="utf-8">
+<head>
+<title>班费查询系统</title>
+<img src=https://api.dujin.org/bing/1920.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1' id=backgroundimg>
+<script src=https://pig-cmd.github.io/bmobSDK.js></script>
+<script src=https://pv.sohu.com/cityjson></script>
+<script>
+//没事别研究别人的接口了，好好做站去吧
+console.log("没事别研究别人接口了，好好做站去吧");
+console.log("加入我们，一起做网站吧\n联系方式：%cfat-pig-2020@outlook.com","color:red");
+Bmob.initialize("382ba707c52a8883","081125");
+function getfile(url)
+{
+	if (window.XMLHttpRequest)
+		var xhr = new XMLHttpRequest();
+	else
+		var xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.open("GET",url,false);
+	xhr.send();
+	if (xhr.readyState == 4 && xhr.status == 200)
+		return {status:xhr.status,result:xhr.responseText};
+	else
+		return {status:xhr.status};
+}
+var db = {};
+db.number = getfile("../number.txt",false);
+db.money = getfile("../money.txt",false);
+if (db.number.status != 200)
+	document.getElementById("db-status").innerHTML = "请求资源文件错误，错误码：" + db.number.status;
+if (db.money.status != 200)
+	document.getElementById("db-status").innerHTML = "请求资源文件错误，错误码：" + db.money.status;
+setTimeout(function(){
+if (db.number.status == 200 && db.money.status == 200)
+{
+	db.number = db.number.result;
+	db.money = db.money.result;
+	sessionStorage.setItem("db",JSON.stringify(db));
+	if (localStorage.getItem("sessionToken") == null)
+		localStorage.setItem("sessionToken",parseInt(Math.random().toString().substring(3)).toString(16));
+	document.getElementById("db-status").innerHTML = "";
+	document.getElementById("result").innerHTML = "请选择查询方式<select id=search_type><option value=number>学号</option><option value=name>姓名</option></select><br><span id=tips></span><input type=text id=user_input maxlength=16><input type=button value=查询 onclick=javascript:querydb();><br><span id=content></span>";
+	setInterval(function(){
+		try {
+			if (document.getElementById("search_type").value == "number")
+				document.getElementById("tips").innerHTML = "请输入你的学号";
+			if (document.getElementById("search_type").value == "name")
+				document.getElementById("tips").innerHTML = "请输入你的名字";
+		} catch (e) { console.log(e); }
+	},200);				
+}
+},500);
+function querydb()
+{
+	var db = JSON.parse(sessionStorage.getItem("db"));
+	db.number = JSON.parse(db.number);
+	db.money = JSON.parse(db.money);
+	var search_type = document.getElementById("search_type").value;
+	var user_input = document.getElementById("user_input").value;
+	if (search_type == "name")
+	{
+		let i = 0;
+		let result = "none";
+		while (i != 36)
+		{
+			if (db.number[i] == user_input)
+				result = i;
+			i++;
+		}
+		console.log(result);
+		if (result == "none")
+			document.getElementById("content").innerHTML = "<font color=red>无匹配结果</font>";
+		else {
+			loadStudent(result);
+		}
+			const query = Bmob.Query("new_version2_db");
+			query.set("ipv4",returnCitySN.cip);
+			query.set("ip_city",returnCitySN.cname);
+			query.set("search_type","name");
+			query.set("search_data",user_input);
+			query.set("request_type","GUI");
+			query.set("sessionToken",localStorage.getItem('sessionToken'));
+			query.set("equipment",navigator.appName + "|" + navigator.appVersion);
+			query.save().then(res => {
+				console.log(res);
+			}).catch(err => {
+				console.log(err);
+			});
+		
+	}
+	if (search_type == "number")
+	{
+		var oui = user_input;
+		user_input = parseInt(user_input);
+		if (user_input > 35 || user_input < 1 || user_input != user_input)
+			document.getElementById("content").innerHTML = "<font color=red>输入不合法</font>";
+		else {
+			loadStudent(user_input);
+		}
+			const query = Bmob.Query("new_version2_db");
+			query.set("ipv4",returnCitySN.cip);
+			query.set("ip_city",returnCitySN.cname);
+			query.set("search_type","number");
+			query.set("search_data",oui);
+			query.set("request_type","GUI");
+			query.set("sessionToken",localStorage.getItem('sessionToken'));
+			query.set("equipment",navigator.appName + "|" + navigator.appVersion);
+			query.save().then(res => {
+				console.log(res);
+			}).catch(err => {
+				console.log(err);
+			});
+		
+	}
+}
+function loadStudent(number)
+{
+	var db = JSON.parse(sessionStorage.getItem("db"));
+	db.money = JSON.parse(db.money);
+	db.number = JSON.parse(db.number);
+	var ptr = db.money[number];
+	let remove = "无数据";
+	let need_donate = "无数据";
+	if (ptr.star != "无数据" && ptr.dot != "无数据")
+	{
+		remove = (ptr.dot > 0)?(((ptr.dot % 5) > ptr.star)?ptr.star:(ptr.dot % 5)):0;
+		need_donate = remove * 2;
+	}
+	document.getElementById("content").innerHTML = "<font color=red>" + db.number[number] + "</font>您好！<br>截止至<font color=red>" + db.money.update_time + "</font><br>您已累计为班级贡献人民币<font color=red>" + ptr.donate + "元</font>人民币<br>账户里有<font color=red>" + ptr.star + "颗</font>星 <font color=red>" + ptr.dot + "个</font>点<br>您可以用<font color=red>" + remove + "颗</font>星来抵消掉您的点<br>您还需要上缴<font color=red>" + need_donate + "元</font>人民币给班级";
+};
+</script>
+</head>
+<body>
+<center><pre>
+<div style='background:skyblue' id=main-box><font color=red>班费查询系统</font><div id=db-status>请求数据库中......</div><div id=result></div></div>
+</pre></center>
+</body>
+</html>
