@@ -211,14 +211,16 @@ function captcha()
 		document.getElementById("captcha-status-box").innerHTML = "你是人类";
 		document.body.style.cursor = "progress";
 		setTimeout(function(){
-			document.getElementById("background-img").className = "show-element";
+			document.getElementById("backgroundimg").className = "show-element";
 			document.getElementById("main-box").className = "show-element";
 			document.getElementById("captcha-box").className = "hide-element";
 			document.body.style.cursor = "auto";
 		},3000);
 	}
 	else
+	{
 		document.getElementById("captcha-status-box").innerHTML = "验证失败，请填写验证码";
+	}
 	document.getElementById("robot-check").disabled = false;
 	},10*e.length);
 }	
