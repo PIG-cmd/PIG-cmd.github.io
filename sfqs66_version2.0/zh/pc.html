@@ -195,12 +195,11 @@ function captcha()
 	document.getElementById("captcha-status-box").innerHTML = "正在验证......";
 	var i = 0;
 	var bool = false;
-	while (i != arr.length)
+	while (i != e.length)
 	{
-		if ((Math.abs(arr[i].movementX) > 180 || Math.abs(arr[i].movementY) > 180) && (t[i] - t[i-1]) < 10)
+		if ((Math.abs(e[i].mouse.movementX) > 180 || Math.abs(e[i].mouse.movementY) > 180) && (e[i].time - e[i].time) < 10)
 		{
 			bool = true;
-			console.log(i);
 			break;
 		}
 
