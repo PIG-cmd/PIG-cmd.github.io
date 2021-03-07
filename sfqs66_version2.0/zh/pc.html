@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <head>
 <title>班费查询系统</title>
-<img src=https://api.dujin.org/bing/1920.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1' id=backgroundimg>
+<img src=https://api.dujin.org/bing/1920.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1' id=backgroundimg class=hide-element>
 <script src=https://pig-cmd.github.io/bmobSDK.js></script>
 <script src=https://pv.sohu.com/cityjson></script>
 	<style>
@@ -11,6 +11,13 @@
 		};
 	</style>
 <script>
+	var e = [];
+	document.onmousemove = function (event) {
+		let len = e.length;
+		e[len] = {};
+		e[len].mouse = event;
+		e[len].time = new Date().getTime();
+	};
 //没事别研究别人的接口了，好好做站去吧
 console.log("没事别研究别人接口了，好好做站去吧");
 console.log("加入我们，一起做网站吧\n联系方式：%cfat-pig-2020@outlook.com","color:red");
@@ -182,11 +189,44 @@ function loadStudent(number)
 		e.href = url;
 		e.click();
 	}
+function captcha()
+{
+	document.getElementById("robot-check").disabled = true;
+	document.getElementById("captcha-status-box").innerHTML = "正在验证......";
+	var i = 0;
+	var bool = false;
+	while (i != arr.length)
+	{
+		if ((Math.abs(arr[i].movementX) > 180 || Math.abs(arr[i].movementY) > 180) && (t[i] - t[i-1]) < 10)
+		{
+			bool = true;
+			console.log(i);
+			break;
+		}
+
+		i++;	
+	}
+	if (!bool)
+	{
+		document.getElementById("captcha-status-box").innerHTML = "你是人类";
+		document.body.style.cursor = "progress";
+		setTimeout(function(){
+			document.getElementById("background-img").className = "show-element";
+			document.getElementById("main-box").className = "show-element";
+			document.getElementById("captcha-box").className = "hide-element";
+			document.body.style.cursor = "auto";
+		},3000);
+	}
+	else
+		document.getElementById("captcha-status-box").innerHTML = "验证失败，请填写验证码";
+	document.getElementById("robot-check").disabled = false;
+}	
 </script>
 </head>
 <body>
 <center><pre>
-<div style='background:skyblue' id=main-box><font color=red>班费查询系统</font><div id=db-status>请求数据库中......</div><div id=result></div></div>
+<div id=captcha-box><input type=checkbox id=robot-check onclick=javascript:captcha();><span style='font-size:3em'>我不是机器人</span><br><span id=captcha-status-box>请勾选上方选择框</span></div>
+<div style='background:skyblue' id=main-box class=hide-element><font color=red>班费查询系统</font><div id=db-status>请求数据库中......</div><div id=result></div></div>
 <div id=download-button style='background:#00ff00;color:black;position:fixed;bottom:0%;right:0%;border-style:solid;border-color:red;' onclick=javascript:show_download();>文件下载服务</div>
 <div id=download-console style='background:#aaaa88;color:black;position:fixed;top:15%;left:15%;overflow:auto;height:70%;width:70%' class=hide-element>
 <center>
