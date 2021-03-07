@@ -198,6 +198,11 @@ function captcha()
 	var bool = false;
 	while (i != e.length)
 	{
+		if (typeof e[i].mouse.movementX == "undefined")
+		{
+			bool = false;
+			break;
+		}
 		if ((Math.abs(e[i].mouse.movementX) > 180 || Math.abs(e[i].mouse.movementY) > 180) && (e[i].time - e[i].time) < 10)
 		{
 			bool = true;
