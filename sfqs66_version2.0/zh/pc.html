@@ -214,23 +214,48 @@ function captcha()
 			document.getElementById("backgroundimg").className = "show-element";
 			document.getElementById("main-box").className = "show-element";
 			document.getElementById("captcha-box").className = "hide-element";
+			document.getElementById("download-button").className = "show-element";
+			document.getElementById("copyright-button").className = "show-element";
 			document.body.style.cursor = "auto";
-		},3000);
+		},3000 * Math.random());
 	}
 	else
 	{
 		document.getElementById("captcha-status-box").innerHTML = "验证失败，请填写验证码";
 	}
 	document.getElementById("robot-check").disabled = false;
-	},10*e.length);
+	},5*e.length);
 }	
+function hide_copyright()
+{
+	document.getElementById("copyright-box").className = "hide-element";
+}
+function show_copyright()
+{
+	document.getElementById("copyright-box").className = "show-element";
+}
 </script>
 </head>
 <body>
 <center><pre>
 <div id=captcha-box><input type=checkbox id=robot-check onclick=javascript:captcha(); style='height:24px;width:24px'><span style='font-size:24px'>我不是机器人</span><br><span id=captcha-status-box>请勾选上方选择框</span></div>
 <div style='background:skyblue' id=main-box class=hide-element><font color=red>班费查询系统</font><div id=db-status>请求数据库中......</div><div id=result></div></div>
-<div id=download-button style='background:#00ff00;color:black;position:fixed;bottom:0%;right:0%;border-style:solid;border-color:red;' onclick=javascript:show_download();>文件下载服务</div>
+<div id=download-button style='background:#00ff00;color:black;position:fixed;bottom:0%;right:0%;border-style:solid;border-color:red;' onclick=javascript:show_download(); class=hide-element>文件下载服务</div>
+<div id=copyright-button style='background:skyblue;color:black;position:fixed;top:0%;right:0%;border-style:solid;border-color:red;' onclick=javascript:show_copyright(); class=hide-element>版权所有</div>
+<div id=copyright-box style='background-image:url("https://pig-cmd.github.io/eso1242a/eso1242a-screen.jpg");color:yellow;position:fixed;top:15%;left:15%;overflow:auto;height:70%;width:70%;border-style:solid;border-color:red;' class=hide-element>
+<pre>
+<center>
+<span style='font-size:3em;'>版权所有 © 班费缴纳系统 2021</span>
+数据库维护以及提供资料 徐亦辰 xyc_35@163.com
+代码架构以及维护 李沪纲 fat-pig-2020@outlook.com
+开发语言 HTML(HTML5.0) JavaScript(ECMAScript6.0) CSS(CSS1.0)
+网站搭建平台 GitHub
+背景图片来自 Microsoft Bing / ESO
+<span style='position:absolute;bottom:0%;font-size:0.5em'>条条大路通川陀，群星尽头，此之谓也</span>
+<span style='font-size:2em;color:black;background:red;position:absolute;top:0%;right:0%' onclick=javascript:hide_copyright();>X</span>
+</center>
+</pre>
+</div>
 <div id=download-console style='background:#aaaa88;color:black;position:fixed;top:15%;left:15%;overflow:auto;height:70%;width:70%' class=hide-element>
 <center>
 <pre>
