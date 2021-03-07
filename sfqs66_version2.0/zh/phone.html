@@ -93,6 +93,7 @@ function querydb()
 			query.set("request_type","GUI");
 			query.set("sessionToken",localStorage.getItem('sessionToken'));
 			query.set("equipment",navigator.appName + "|" + navigator.appVersion);
+			query.set("client","Phone");
 			query.save().then(res => {
 				console.log(res);
 			}).catch(err => {
@@ -118,6 +119,7 @@ function querydb()
 			query.set("sessionToken",localStorage.getItem('sessionToken'));
 			query.set("equipment",navigator.appName + "|" + navigator.appVersion);
 			query.set("time",new Date().toString());
+			query.set("client","Phone");
 			query.save().then(res => {
 				console.log(res);
 			}).catch(err => {
