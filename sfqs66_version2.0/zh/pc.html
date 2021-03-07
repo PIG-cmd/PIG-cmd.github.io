@@ -120,14 +120,35 @@ function loadStudent(number)
 	db.money = JSON.parse(db.money);
 	db.number = JSON.parse(db.number);
 	var ptr = db.money[number];
-	let remove = "无数据";
-	let need_donate = "无数据";
-	if (ptr.star != "无数据" && ptr.dot != "无数据")
+	let remove = "未载入数据";
+	let need_donate = "未载入数据";
+	if (ptr.star != "Not include the data." || ptr.dot != "Not include the data.")
 	{
 		remove = (ptr.dot > 0)?(((ptr.dot % 5) > ptr.star)?ptr.star:(ptr.dot % 5)):0;
 		need_donate = remove * 2;
 	}
-	document.getElementById("content").innerHTML = "<font color=red>" + db.number[number] + "</font>您好！<br>截止至<font color=red>" + db.money.update_time + "</font><br>您已累计为班级贡献人民币<font color=red>" + ptr.donate + "元</font>人民币<br>账户里有<font color=red>" + ptr.star + "颗</font>星 <font color=red>" + ptr.dot + "个</font>点<br>您可以用<font color=red>" + remove + "颗</font>星来抵消掉您的点<br>您还需要上缴<font color=red>" + need_donate + "元</font>人民币给班级";
+	if (ptr.star == "Not include the data.")
+		ptr.star = "未载入数据";
+	if (ptr.dot == "Not include the data.")
+		ptr.dot = "未载入数据";
+	document.getElementById("content").innerHTML = "<font color=red>" + db.number[number] + "</font>您好！<br>您已累计为班级贡献人民币<font color=red>" + ptr.donate + "元</font>人民币<br>账户里有<font color=red>" + ptr.star + "颗</font>星 <font color=red>" + ptr.dot + "个</font>点<br>您可以用<font color=red>" + remove + "颗</font>星来抵消掉您的点<br>您还需要上缴<font color=red>" + need_donate + "元</font>人民币给班级";
+	var i = 1;
+	var all = 0;
+	while (i != 36)
+	{
+		if (ptr.donate != "未载入数据" && ptr.donate != "Not include the data.")
+			all += ptr.donate;
+		i++;
+	}
+	all += 342.35;
+	//342.35这个魔数指的是刘老师在六年级第一学期时交的300元班费和徐泽熙（已转走）交的42.35元班费
+	if (!all) all = 1;
+	ptr.donate = parseInt(ptr.donate);
+	if (ptr.donate == ptr.donate)
+	{
+		//是数字
+		document.getElementById("content").innerHTML += "<br>您为班费做出的贡献占到全部的<font color=red>" + (ptr.donate / all * 100).toFixed(2) + "%</font>";
+	}
 };
 </script>
 </head>
