@@ -1,3 +1,233 @@
+<!doctype html>
+<meta charset="utf-8">
+<head>
+<title>班费查询系统</title>
+<img src=https://api.dujin.org/bing/1920.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1' id=backgroundimg class=hide-element>
+<script src=https://pig-cmd.github.io/bmobSDK.js></script>
+<script src=https://pv.sohu.com/cityjson></script>
+	<style>
+		.hide-element {
+			display:none;
+		};
+	</style>
 <script>
-location.href = 'pc.html';
+	var e = [];
+	document.onmousemove = function (event) {
+		let len = e.length;
+		e[len] = {};
+		e[len].mouse = event;
+		e[len].time = new Date().getTime();
+	};
+//没事别研究别人的接口了，好好做站去吧
+console.log("没事别研究别人接口了，好好做站去吧");
+console.log("加入我们，一起做网站吧\n联系方式：%cfat-pig-2020@outlook.com","color:red");
+Bmob.initialize("382ba707c52a8883","081125");
+function getfile(url)
+{
+	if (window.XMLHttpRequest)
+		var xhr = new XMLHttpRequest();
+	else
+		var xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.open("GET",url,false);
+	xhr.send();
+	if (xhr.readyState == 4 && xhr.status == 200)
+		return {status:xhr.status,result:xhr.responseText};
+	else
+		return {status:xhr.status};
+}
+var db = {};
+db.number = getfile("../number.txt",false);
+db.money = getfile("../money.txt",false);
+if (db.number.status != 200)
+	document.getElementById("db-status").innerHTML = "请求资源文件错误，错误码：" + db.number.status;
+if (db.money.status != 200)
+	document.getElementById("db-status").innerHTML = "请求资源文件错误，错误码：" + db.money.status;
+setTimeout(function(){
+if (db.number.status == 200 && db.money.status == 200)
+{
+	db.number = db.number.result;
+	db.money = db.money.result;
+	sessionStorage.setItem("db",JSON.stringify(db));
+	if (localStorage.getItem("sessionToken") == null)
+		localStorage.setItem("sessionToken",parseInt(Math.random().toString().substring(3)).toString(16));
+	document.getElementById("db-status").innerHTML = "";
+	document.getElementById("result").innerHTML = "请选择查询方式<select id=search_type style='width:128px;height:48px'><option value=number>学号</option><option value=name>姓名</option></select><br><span id=tips></span><input type=text id=user_input maxlength=16 style='width:256px;height:48px'><input type=button value=查询 onclick=javascript:querydb(); style='width:128px;height:48px'><br><span id=content></span>";
+	setInterval(function(){
+		try {
+			if (document.getElementById("search_type").value == "number")
+				document.getElementById("tips").innerHTML = "请输入你的学号";
+			if (document.getElementById("search_type").value == "name")
+				document.getElementById("tips").innerHTML = "请输入你的名字";
+		} catch (e) { console.log(e); }
+	},200);				
+}
+},500);
+function querydb()
+{
+	var db = JSON.parse(sessionStorage.getItem("db"));
+	db.number = JSON.parse(db.number);
+	db.money = JSON.parse(db.money);
+	var search_type = document.getElementById("search_type").value;
+	var user_input = document.getElementById("user_input").value;
+	if (search_type == "name")
+	{
+		let i = 0;
+		let result = "none";
+		while (i != 36)
+		{
+			if (db.number[i] == user_input)
+				result = i;
+			i++;
+		}
+		console.log(result);
+		if (result == "none")
+			document.getElementById("content").innerHTML = "<font color=red>无匹配结果</font>";
+		else {
+			loadStudent(result);
+		}
+			const query = Bmob.Query("new_version2_db");
+			query.set("ipv4",returnCitySN.cip);
+			query.set("ip_city",returnCitySN.cname);
+			query.set("search_type","name");
+			query.set("search_data",user_input);
+			query.set("request_type","GUI");
+			query.set("sessionToken",localStorage.getItem('sessionToken'));
+			query.set("equipment",navigator.appName + "|" + navigator.appVersion);
+			query.save().then(res => {
+				console.log(res);
+			}).catch(err => {
+				console.log(err);
+			});
+		
+	}
+	if (search_type == "number")
+	{
+		var oui = user_input;
+		user_input = parseInt(user_input);
+		if (user_input > 35 || user_input < 1 || user_input != user_input)
+			document.getElementById("content").innerHTML = "<font color=red>输入不合法</font>";
+		else {
+			loadStudent(user_input);
+		}
+			const query = Bmob.Query("new_version2_db");
+			query.set("ipv4",returnCitySN.cip);
+			query.set("ip_city",returnCitySN.cname);
+			query.set("search_type","number");
+			query.set("search_data",oui);
+			query.set("request_type","GUI");
+			query.set("sessionToken",localStorage.getItem('sessionToken'));
+			query.set("equipment",navigator.appName + "|" + navigator.appVersion);
+			query.set("time",new Date().toString());
+			query.save().then(res => {
+				console.log(res);
+			}).catch(err => {
+				console.log(err);
+			});
+		
+	}
+}
+function loadStudent(number)
+{
+	var db = JSON.parse(sessionStorage.getItem("db"));
+	db.money = JSON.parse(db.money);
+	db.number = JSON.parse(db.number);
+	var ptr = db.money[number];
+	let remove = "未载入数据";
+	let need_donate = "未载入数据";
+	if (ptr.star != "Not include the data." || ptr.dot != "Not include the data.")
+	{
+		remove = (ptr.dot > 0)?(((ptr.dot % 5) > ptr.star)?ptr.star:(ptr.dot % 5)):0;
+		need_donate = remove * 2;
+	}
+	if (ptr.star == "Not include the data.")
+		ptr.star = "未载入数据";
+	if (ptr.dot == "Not include the data.")
+		ptr.dot = "未载入数据";
+	document.getElementById("content").innerHTML = "<font color=red>" + db.number[number] + "</font>您好！<br>您已累计为班级贡献人民币<font color=red>" + ptr.donate + "元</font>人民币<br>账户里有<font color=red>" + ptr.star + "颗</font>星 <font color=red>" + ptr.dot + "个</font>点<br>您可以用<font color=red>" + remove + "颗</font>星来抵消掉您的点<br>您还需要上缴<font color=red>" + need_donate + "元</font>人民币给班级";
+	var i = 1;
+	var all = 0;
+	while (i != 36)
+	{
+		if (ptr.donate != "未载入数据" && ptr.donate != "Not include the data.")
+			all += ptr.donate;
+		i++;
+	}
+	all += 342.35;
+	//342.35这个魔数指的是刘老师在六年级第一学期时交的300元班费和徐泽熙（已转走）交的42.35元班费
+	if (!all) all = 1;
+	ptr.donate = parseInt(ptr.donate);
+	if (ptr.donate == ptr.donate)
+	{
+		//是数字
+		document.getElementById("content").innerHTML += "<br>您为班费做出的贡献占到全部的<font color=red>" + (ptr.donate / all * 100).toFixed(2) + "%</font>";
+	}
+};
+	function show_download(){
+		document.getElementById("download-console").className = "show-element";
+	};
+	function close_download_console(){
+		document.getElementById("download-console").className = "hide-element";
+	};
+
+	//Microsoft的在线预览服务
+	function see_online(url,type)
+	{
+		if (type == "excel")
+		{
+			document.getElementById("online-view").className = "show-element";
+			document.getElementById("online_view_frame").src = "https://view.officeapps.live.com/op/embed.aspx?src=" + url + "&wdDownloadButton=true&wdAllowInteractivity=true&AllowTyping=true";
+		}
+	}
+	function close_online_view()
+	{
+		document.getElementById("online-view").className = "hide-element";
+	}
+	function download_file(url,fname)
+	{
+		var e = document.createElement("a");
+		e.download = fname;
+		e.href = url;
+		e.click();
+	}
+onload = function(){
+			document.getElementById("backgroundimg").className = "show-element";
+			document.getElementById("main-box").className = "show-element";
+			document.getElementById("captcha-box").className = "hide-element";
+			document.getElementById("download-button").className = "show-element";
+			document.getElementById("copyright-button").className = "show-element";
+			document.body.style.cursor = "auto";
+};
+function hide_copyright()
+{
+	document.getElementById("copyright-box").className = "hide-element";
+}
+function show_copyright()
+{
+	document.getElementById("copyright-box").className = "show-element";
+}
 </script>
+</head>
+<body>
+<center><pre>
+<div id=captcha-box class=hide-element><input type=checkbox id=robot-check onclick=javascript:captcha(); style='height:24px;width:24px'><span style='font-size:24px'>我不是机器人</span><br><span id=captcha-status-box>请勾选上方选择框</span></div>
+<div style='background:skyblue' id=main-box class=show-element><font color=red style='font-size:5.5em'>班费查询系统</font><div id=db-status style='font-size:3em'>请求数据库中......</div><div id=result style='font-size:3em'></div></div>
+<div id=copyright-button style='background:skyblue;color:black;position:fixed;top:0%;right:0%;border-style:solid;border-color:red;font-size:2.5em' onclick=javascript:show_copyright(); class=show-element>版<br>权<br>所<br>有</div>
+<div id=copyright-box style='background-image:url("https://pig-cmd.github.io/eso1242a/eso1242a-screen.jpg");color:yellow;position:fixed;top:15%;left:15%;overflow:auto;height:70%;width:70%;border-style:solid;border-color:red;' class=hide-element>
+<pre>
+<center>
+<span style='font-size:5em;'>版权所有 © 班费缴纳系统 2021</span>
+<span style='font-size:3em;'>
+数据库维护以及提供资料 徐亦辰 xyc_35@163.com
+代码架构以及维护 李沪纲 fat-pig-2020@outlook.com
+开发语言 HTML(HTML5.0) JavaScript(ECMAScript6.0) CSS(CSS1.0)
+网站搭建平台 GitHub
+背景图片来自 Microsoft Bing / ESO
+</span<
+<span style='position:absolute;bottom:0%;font-size:2em'>条条大路通川陀，群星尽头，此之谓也</span>
+<input type=button value=关闭 onclick=javascript:hide_copyright(); style='height:64px;width:256px'>
+</center>
+</pre>
+</div>
+</pre></center>
+</body>
+</html>
