@@ -5,6 +5,11 @@
 <img src=https://api.dujin.org/bing/1920.php height=100% width=100% style='position:fixed;top:0px;left:0px;z-index:-1' id=backgroundimg>
 <script src=https://pig-cmd.github.io/bmobSDK.js></script>
 <script src=https://pv.sohu.com/cityjson></script>
+	<style>
+		.hide-element {
+			display:none;
+		};
+	</style>
 <script>
 //没事别研究别人的接口了，好好做站去吧
 console.log("没事别研究别人接口了，好好做站去吧");
@@ -150,11 +155,34 @@ function loadStudent(number)
 		document.getElementById("content").innerHTML += "<br>您为班费做出的贡献占到全部的<font color=red>" + (ptr.donate / all * 100).toFixed(2) + "%</font>";
 	}
 };
+	function show_download(){
+		document.getElementById("download-console").className = "show-element";
+	};
+	function close_download_console(){
+		document.getElementById("download-console").className = "hide-element";
+	};
+	//https://view.officeapps.live.com/op/embed.aspx?src=https://cdn2021.github.io/upload_file/cfs.xls&wdDownloadButton=true&wdAllowInteractivity=true&AllowTyping=true
+	//Microsoft的在线预览服务
 </script>
 </head>
 <body>
 <center><pre>
 <div style='background:skyblue' id=main-box><font color=red>班费查询系统</font><div id=db-status>请求数据库中......</div><div id=result></div></div>
+<div id=download-button style='background:#00ff00;color:black;position:fixed;bottom:0%;right:0%' onclick=javascript:show_download(); value=文件下载服务>
+<div id=download-console style='background:#00ff00;color:black;position:fixed;top:15%;left:15%;overflow:auto;height:70%;width:70%' class=hide-element>
+<center>
+<pre>
+<span style='font-size:3em;color:red'>班费查询系统 - 文件下载服务</span>
+<img height=32px width=32px src=https://tse1-mm.cn.bing.net/th/id/OIP.SWE6eSY2268NEadOJn9J7AHaHa?pid=ImgDet&rs=1 alt=.xls>班费统计.xlsx  Mar.7,2021 <input type=button value=在线预览 onclick=javascript:see_online("https://cdn2021.github.io/upload_file/cfs.xls","excel");> <input type=button value=下载 onclick=javascript:download_file("https://cdn2021.github.io/upload_file/cfs.xls");>
+<span style='font-size:2em;color:black;background:red;position:absolute;top:0%;right:0%' onclick=javascript:close_download_console();>X</span>
+</pre>
+</center>
+</div>
+<div id=online-view style='background:#00ff00;position:fixed;top:10%;width:10%;overflow:auto;height:80%;width:80%' class=hide-element>
+在线预览服务由 Microsoft Office 提供
+<iframe height=100% width=100% id=online_vide_frame>不支持此框架，请更换浏览器</iframe>
+<span style='font-size:2em;color:black;background:red;position:absolute;top:0%;right:0%' onclick=javascript:close_online_vide();>X</span>
+</div>
 </pre></center>
 </body>
 </html>
