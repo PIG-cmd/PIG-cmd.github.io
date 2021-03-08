@@ -146,7 +146,7 @@ function loadStudent(number)
 		ptr.star = "未载入数据";
 	if (ptr.dot == "Not include the data.")
 		ptr.dot = "未载入数据";
-	document.getElementById("content").innerHTML = "<font color=red>" + db.number[number] + "</font>您好！<br>您已累计为班级贡献人民币<font color=red>" + ptr.donate + "元</font>人民币<br>账户里有<font color=red>" + ptr.star + "颗</font>星 <font color=red>" + ptr.dot + "个</font>点<br>您可以用<font color=red>" + remove + "颗</font>星来抵消掉您的点<br>您还需要上缴<font color=red>" + need_donate + "元</font>人民币给班级";
+	document.getElementById("content").innerHTML = "<font color=red>" + db.number[number] + "</font>您好！<br>您已累计为班级贡献人民币<font color=red>" + ptr.donate + "元</font>人民币<br>账户里有<font color=red>" + ptr.star + "颗</font>星 <font color=red>" + ptr.dot + "个</font>点<br>您可以用<font color=red>" + remove + "颗</font>星来抵消掉您的点<br>您还需要上缴<font color=red>" + (need_donate - remove * 2) + "元</font>人民币给班级";
 	var i = 1;
 	var all = 0;
 	while (i != 36)
