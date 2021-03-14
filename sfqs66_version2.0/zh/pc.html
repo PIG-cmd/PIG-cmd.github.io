@@ -232,20 +232,23 @@ function captcha()
 	{
 		document.getElementById("captcha-status-box").innerHTML = "验证失败，请填写验证码";
 		slidecaptcha.new({success_px:10,maxtime:20000,mintime:500});
-		if (slidecaptcha.data[slidecaptcha.max].status == "Success")
-		{
-			slidecaptcha.remove(slidecaptcha.max);
-			document.getElementById("captcha-status-box").innerHTML = "你是人类";
-			document.body.style.cursor = "progress";
-			setTimeout(function(){
-				document.getElementById("backgroundimg").className = "show-element";
-				document.getElementById("main-box").className = "show-element";
-				document.getElementById("captcha-box").className = "hide-element";
-				document.getElementById("download-button").className = "show-element";
-				document.getElementById("copyright-button").className = "show-element";
-				document.body.style.cursor = "auto";
-			},3000 * Math.random());	
-		};
+		var siv = setInterval(function(){
+			if (slidecaptcha.data[slidecaptcha.max].status == "Success")
+			{
+				slidecaptcha.remove(slidecaptcha.max);
+				clearInterval(siv);
+				document.getElementById("captcha-status-box").innerHTML = "你是人类";
+				document.body.style.cursor = "progress";
+				setTimeout(function(){
+					document.getElementById("backgroundimg").className = "show-element";
+					document.getElementById("main-box").className = "show-element";
+					document.getElementById("captcha-box").className = "hide-element";
+					document.getElementById("download-button").className = "show-element";
+					document.getElementById("copyright-button").className = "show-element";
+					document.body.style.cursor = "auto";
+				},3000 * Math.random());	
+			};
+		},200);
 	};
 	document.getElementById("robot-check").disabled = false;
 	},5*e.length);
