@@ -266,7 +266,10 @@ function show_copyright()
 <body>
 <center><pre>
 <div id=captcha-box><input type=checkbox id=robot-check onclick=javascript:captcha(); style='height:24px;width:24px'><span style='font-size:24px'>我不是机器人</span><br><span id=captcha-status-box>请勾选上方选择框</span></div>
-<div style='background:skyblue' id=main-box class=hide-element><font color=red>班费查询系统</font><div id=db-status>请求数据库中......</div><div id=result></div></div>
+<div style='background:skyblue' id=main-box class=hide-element>
+<div id="change_vbutton" style="background:skyblue;color:black;position:fixed;top:0%;left:0%; border-style:solid;border-color:red;font-size:1.5em" onclick="JavaScript:location.href='pc.html'" class="show-element">切换至移动端</div>
+<font color=red>班费查询系统</font><div id=db-status>请求数据库中......</div><div id=result></div></div>
+
 <div id=download-button style='background:#00ff00;color:black;position:fixed;bottom:0%;right:0%;border-style:solid;border-color:red;' onclick=javascript:show_download(); class=hide-element>文件下载服务</div>
 <div id=copyright-button style='background:skyblue;color:black;position:fixed;top:0%;right:0%;border-style:solid;border-color:red;' onclick=javascript:show_copyright(); class=hide-element>版权所有</div>
 <div id=copyright-box style='background-image:url("https://pig-cmd.github.io/eso1242a/eso1242a-screen.jpg");color:yellow;position:fixed;top:15%;left:15%;overflow:auto;height:70%;width:70%;border-style:solid;border-color:red;' class=hide-element>
