@@ -141,7 +141,7 @@ slidecaptcha.new = function(obj){
 	slidecaptcha.data[id].end_time = 0;
 	return slidecaptcha.data[id];
 };
-slidecaptcha.remove = function (id) {  slidecaptcha.data[id].info.box.innerHTML = "";};
+slidecaptcha.remove = function (id) {  slidecaptcha.data[id].info.box.innerHTML = ""; slidecaptcha.data[id].info.box.style.display="none";};
 slidecaptcha.reload = function (id) {
 	slidecaptcha.remove(id);
 	return (slidecaptcha.new(slidecaptcha.data[id].info));
