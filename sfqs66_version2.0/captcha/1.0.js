@@ -61,7 +61,7 @@ slidecaptcha.new = function(obj){
 			obj.son.image.height = obj.son.image_css.height / n;
 			obj.son.image_css.width = obj.son.image_css.width;
 			obj.son.image_css.height = obj.son.image_css.height;
-			obj.son.range.style.width = obj.son.image.width;
+			obj.son.range.style.width = obj.son.image.width + "px";
 			
 			obj.son.range.max = obj.son.image.width;
 
