@@ -143,6 +143,6 @@ slidecaptcha.new = function(obj){
 };
 slidecaptcha.remove = function (id) {  slidecaptcha.data[id].info.box.innerHTML = ""; slidecaptcha.data[id].info.box.style.display="none";};
 slidecaptcha.reload = function (id) {
-	slidecaptcha.remove(id);
+	slidecaptcha.data[id].info.box.innerHTML = "";
 	return (slidecaptcha.new(slidecaptcha.data[id].info));
 };
