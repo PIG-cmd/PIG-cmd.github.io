@@ -35,6 +35,7 @@ function upload_data(){
 		i++;
 	};
 	dat = JSON.stringify(dat);
+	table.set("id",id);
 	table.set("data",dat);
 	table.save().then(function(res){
 		console.log(res);
