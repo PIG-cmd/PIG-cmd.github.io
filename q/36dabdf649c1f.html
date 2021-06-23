@@ -12,7 +12,7 @@ table.get(id).then(function(res){
 	var dat = res.data;
 	dat = JSON.parse(dat);
 	var i = 1;
-	var str = "<table border=1><tr><td>学号</td><td>姓名</td><td>语文</td><td>数学</td><td>英语</td></tr>";
+	var str = "<table border=1><tr><td>学号</td><td>姓名</td><td>语文</td><td>数学</td><td>英语</td><td>平均分</td><td>总分</td></tr>";
 	while (i < 36){
 		if (dat[i][0] == null)
 			dat[i][0] = "";
@@ -20,11 +20,17 @@ table.get(id).then(function(res){
 			dat[i][1] = "";
 		if (dat[i][2] == null)
 			dat[i][2] = "";
-		
-		str += "<tr><td>" + i + "</td><td>" + n[i] + "</td><td><input type=text class=chinese value=" + dat[i][0] + "></td><td><input type=text class=maths value=" + dat[i][1] + "></td><td><input type=text class=english value=" + dat[i][2] + "></td></tr>";
+		var total = parseInt(dat[i][0] + dat[i][1] + dat[i][2]);
+                var average = total / 3;
+		if (isNaN(total))
+			total = "-";
+		if (isNaN(average))
+			total = "-";
+		str += "<tr><td>" + i + "</td><td>" + n[i] + "</td><td><input type=text class=chinese value=" + dat[i][0] + "></td><td><input type=text class=maths value=" + dat[i][1] + "></td><td><input type=text class=english value=" + dat[i][2] + "></td><td>" + total + "</td><td>" + average + "</td></tr>";
 		i++;
 	};
-	str += "</table>";
+	var subject_average = GetAverage(dat);
+	str += "<tr><td>0</td><td>班级平均分</td><td>" + subject_average.chinese + "</td><td>" + subject_average.maths + "</td><td>" + subject_average.english + "</td><td>-</td><td>-</td></tr></table>";
 	document.querySelector("#monitor").innerHTML = "<input type=button value=提交数据 onclick=javascript:upload_data();><hr>" + str;
 }).catch(function(err){
 	console.log(err);
@@ -52,5 +58,25 @@ function upload_data(){
 	}).catch(function(err){
 		console.log(err);
 	});
+};
+function GetAverage(dat){
+	var i = 1;
+	var total = [0,0,0];
+	while (i < 36){
+		total[0] += dat[i][0];
+		total[1] += dat[i][1];
+		total[2] += dat[i][2];
+		i++;
+	};
+	var average = [null,null,null];
+	average[0] = total[0] / 35;
+	average[1] = total[1] / 35;
+	average[2] = total[2] / 35;
+	for (i in average){
+		if (isNaN(average[i]))
+			average[i] = "-";
+	};
+	return {chinese:average[0],maths:average[1],english:average[2]};
+	
 };
 </script>
