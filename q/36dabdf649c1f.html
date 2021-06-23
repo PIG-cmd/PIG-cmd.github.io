@@ -13,6 +13,13 @@ table.get(id).then(function(res){
 	var i = 1;
 	var str = "<table border=1><tr><td>学号</td><td>语文</td><td>数学</td><td>英语</td></tr>";
 	while (i < 36){
+		if (dat[i][0] == null)
+			dat[i][0] = "";
+		if (dat[i][1] == null)
+			dat[i][1] = "";
+		if (dat[i][2] == null)
+			dat[i][2] = "";
+		
 		str += "<tr><td>" + i + "</td><td><input type=text class=chinese value=" + dat[i][0] + "></td><td><input type=text class=maths value=" + dat[i][1] + "></td><td><input type=text class=english value=" + dat[i][2] + "></td></tr>";
 		i++;
 	};
