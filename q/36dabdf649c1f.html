@@ -25,8 +25,8 @@ table.get(id).then(function(res){
 		if (isNaN(total))
 			total = "-";
 		if (isNaN(average))
-			total = "-";
-		str += "<tr><td>" + i + "</td><td>" + n[i] + "</td><td><input type=text class=chinese value=" + dat[i][0] + "></td><td><input type=text class=maths value=" + dat[i][1] + "></td><td><input type=text class=english value=" + dat[i][2] + "></td><td>" + total + "</td><td>" + average + "</td></tr>";
+			average = "-";
+		str += "<tr><td>" + i + "</td><td>" + n[i] + "</td><td><input type=text class=chinese value=" + dat[i][0] + "></td><td><input type=text class=maths value=" + dat[i][1] + "></td><td><input type=text class=english value=" + dat[i][2] + "></td><td>" + average.toFixed(2) + "</td><td>" + total + "</td></tr>";
 		i++;
 	};
 	var subject_average = GetAverage(dat);
