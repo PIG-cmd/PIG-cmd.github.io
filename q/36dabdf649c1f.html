@@ -20,7 +20,7 @@ table.get(id).then(function(res){
 			dat[i][1] = "";
 		if (dat[i][2] == null)
 			dat[i][2] = "";
-		var total = parseInt(parseInt(dat[i][0]) + parseInt(dat[i][1]) + parseInt(dat[i][2]));
+		var total = parseFloat(parseFloat(dat[i][0]) + parseFloat(dat[i][1]) + parseFloat(dat[i][2]));
                 var average = total / 3;
 		if (isNaN(total))
 			total = "-";
@@ -63,9 +63,9 @@ function GetAverage(dat){
 	var i = 1;
 	var total = [0,0,0];
 	while (i < 36){
-		total[0] += parseInt(dat[i][0]);
-		total[1] += parseInt(dat[i][1]);
-		total[2] += parseInt(dat[i][2]);
+		total[0] += parseFloat(dat[i][0]);
+		total[1] += parseFloat(dat[i][1]);
+		total[2] += parseFloat(dat[i][2]);
 		i++;
 	};
 	var average = [null,null,null];
