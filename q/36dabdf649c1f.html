@@ -1,0 +1,47 @@
+<meta charset="utf-8">
+<script src=/bmobSDK.js></script>
+<title>2020学年第二学期期末测验预初6班考试成绩统计</title>
+<center><p style='font-size:3em'>2020学年第二学期期末测验预初6班考试成绩统计</p></center>
+<p id=monitor>正在加载数据......</p>
+<script>
+Bmob.initialize("5200d7f4ce3ea3d7","081126");
+const table = Bmob.Query("question");
+const id = "BZ9c1115";
+table.get(id).then(function(res){
+	var dat = res.data;
+	dat = JSON.parse(dat);
+	var i = 1;
+	var str = "<table border=1><tr><td>学号</td><td>语文</td><td>数学</td><td>英语</td></tr>";
+	while (i < 36){
+		str += "<tr><td>" + i + "</td><td><input type=text class=chinese value=" + dat[i][0] + "></td><td><input type=text class=maths value=" + dat[i][1] + "></td><td><input type=text class=english value=" + dat[i][2] + "></td></tr>";
+		i++;
+	};
+	str += "</table>";
+	document.querySelector("#monitor").innerHTML = "<input type=button value=提交数据 onclick=javascript:upload_data();><hr>" + str;
+}).catch(err){
+	console.log(err);
+});	
+function upload_data(){
+	var ch = document.getElementsByClassName("chinese");
+	var ma = document.getElementsByClassName("maths");
+	var en = document.getElementsByClassName("english");
+	var dat = [null];
+	var i = 1;
+	while (i < 36){
+		dat[i] = [];
+		dat[i][0] = ch[i-1].value;
+		dat[i][1] = ch[i-1].value;
+		dat[i][2] = ch[i-1].value;
+		i++;
+	};
+	dat = JSON.stringify(dat);
+	table.set("data",dat);
+	table.save().then(function(res){
+		console.log(res);
+		alert("提交成功！");
+		location.reload();
+	}).catch(err => {
+		console.log(err);
+	});
+};
+</script>
