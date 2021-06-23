@@ -18,7 +18,7 @@ table.get(id).then(function(res){
 	};
 	str += "</table>";
 	document.querySelector("#monitor").innerHTML = "<input type=button value=提交数据 onclick=javascript:upload_data();><hr>" + str;
-}).catch(err){
+}).catch(function(err){
 	console.log(err);
 });	
 function upload_data(){
@@ -40,7 +40,7 @@ function upload_data(){
 		console.log(res);
 		alert("提交成功！");
 		location.reload();
-	}).catch(err => {
+	}).catch(function(err){
 		console.log(err);
 	});
 };
