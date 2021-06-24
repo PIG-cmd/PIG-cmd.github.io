@@ -28,12 +28,12 @@ table.get(id).then(function(res){
 			average = "-";
 		else
 			average = average.toFixed(2);
-		str += "<tr><td>" + i + "</td><td>" + n[i] + "</td><td><input type=text class=chinese value=" + dat[i][0] + "></td><td><input type=text class=maths value=" + dat[i][1] + "></td><td><input type=text class=english value=" + dat[i][2] + "></td><td>" + average + "</td><td>" + total + "</td></tr>";
+		str += "<tr><td>" + i + "</td><td>" + n[i] + "</td><td><input type=text class=chinese value=" + dat[i][0] + "></td><td><input type=text class=maths value=" + dat[i][1] + "></td><td><input type=text class=english value=" + dat[i][2] + "></td><td><span class=person_average>" + average + "</span></td><td><span class=person_total>" + total + "</span></td></tr>";
 		i++;
 	};
 	var subject_average = GetAverage(dat);
-	str += "<tr><td>0</td><td>班级平均分</td><td>" + subject_average.chinese + "</td><td>" + subject_average.maths + "</td><td>" + subject_average.english + "</td><td>-</td><td>-</td></tr></table>";
-	document.querySelector("#monitor").innerHTML = "<input type=button value=提交数据 onclick=javascript:upload_data();><hr>" + str;
+	str += "<tr><td>0</td><td>班级平均分</td><td><span id=subject_chinese_average>" + subject_average.chinese + "</span></td><td><span id=subject_maths_average>" + subject_average.maths + "</span></td><td><span id=subject_english_average>" + subject_average.english + "</span></td><td>-</td><td>-</td></tr></table>";
+	document.querySelector("#monitor").innerHTML = "<input type=button value=提交数据 onclick=javascript:upload_data();><input type=button value=数据导出 onclick=javascript:export_data();><hr>" + str;
 }).catch(function(err){
 	console.log(err);
 });	
@@ -80,5 +80,28 @@ function GetAverage(dat){
 	};
 	return {chinese:average[0],maths:average[1],english:average[2]};
 	
+};
+function export_data(){
+  if (confirm("该功能正在测试，可能不稳定，您确定要导出吗？")){
+	  var str = "学号,姓名,语文,数学,英语,平均分,总分\n";
+	  var i = 1;
+	  var ch = document.getElementsByClassName("chinese");
+	  var ma = document.getElementsByClassName("maths");
+	  var en = document.getElementsByClassName("english");
+	  var average = document.getElementsByClassName("person_average");
+	  var total = document.getElementsByClassName("person_total");
+	  while (i < 36){
+		  str += i + "," + n[i] + "," + ch[i].value + "," + ma[i].value + "," + en[i].value + "," + average[i].innerHTML + "," + total[i].innerHTML + "\n";
+		  i++;
+	  };
+	  str += "0,班级平均分," + document.querySelector("#subject_chinese_average").innerHTML + "," + document.querySelector("#subject_maths_average").innerHTML + "," +  + document.querySelector("#subject_english_average").innerHTML + ",-,-";
+	  var blob = new Blob([str],{type:"text/*"});
+	  var url = window.URL.createObjectURL(blob);
+	  var a = document.createElement("a");
+	  a.href = url;
+	  a.download = "2020学年第二学期期末测验预初6班考试成绩统计.csv";
+	  a.click();
+				     
+  };
 };
 </script>
