@@ -94,14 +94,16 @@ function export_data(){
 		  str += i + "," + n[i] + "," + ch[i-1].value + "," + ma[i-1].value + "," + en[i-1].value + "," + average[i-1].innerHTML + "," + total[i-1].innerHTML + "\n";
 		  i++;
 	  };
-	  str += "0,班级平均分," + document.querySelector("#subject_chinese_average").innerHTML + "," + document.querySelector("#subject_maths_average").innerHTML + "," +  + document.querySelector("#subject_english_average").innerHTML + ",-,-";
+	  str += "0,班级平均分," + document.querySelector("#subject_chinese_average").innerHTML + "," + document.querySelector("#subject_maths_average").innerHTML + "," + document.querySelector("#subject_english_average").innerHTML + ",-,-";
 	  var blob = new Blob([str],{type:"text/*"});
 	  var url = window.URL.createObjectURL(blob);
 	  var a = document.createElement("a");
 	  a.href = url;
 	  a.download = "2020学年第二学期期末测验预初6班考试成绩统计.csv";
 	  a.click();
-				     
+	  setTimeout(function(){
+		  alert("数据导出成功！如果中文有乱码，请手动将文件编码转换成ANSI字符集");
+	  },500);
   };
 };
 </script>
