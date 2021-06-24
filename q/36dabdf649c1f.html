@@ -91,7 +91,7 @@ function export_data(){
 	  var average = document.getElementsByClassName("person_average");
 	  var total = document.getElementsByClassName("person_total");
 	  while (i < 36){
-		  str += i + "," + n[i] + "," + ch[i].value + "," + ma[i].value + "," + en[i].value + "," + average[i].innerHTML + "," + total[i].innerHTML + "\n";
+		  str += i + "," + n[i] + "," + ch[i-1].value + "," + ma[i-1].value + "," + en[i-1].value + "," + average[i-1].innerHTML + "," + total[i-1].innerHTML + "\n";
 		  i++;
 	  };
 	  str += "0,班级平均分," + document.querySelector("#subject_chinese_average").innerHTML + "," + document.querySelector("#subject_maths_average").innerHTML + "," +  + document.querySelector("#subject_english_average").innerHTML + ",-,-";
