@@ -77,6 +77,8 @@ function GetAverage(dat){
 	for (i in average){
 		if (isNaN(average[i]))
 			average[i] = "-";
+		else
+			average[i] = average[i].toFixed(2);
 	};
 	return {chinese:average[0],maths:average[1],english:average[2]};
 	
